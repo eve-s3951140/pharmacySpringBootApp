@@ -33,5 +33,5 @@ build/
 .vscode/
 
 # Ignore H2 database files
-*.mv.db
+testdb.mv.db
 *.trace.db
