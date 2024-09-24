@@ -86,3 +86,10 @@ img {
   text-align: right;
   white-space: nowrap; 
 }
+
+.add-icon {
+  float: right; 
+  height: 35px;
+  width: 35px;
+  margin-left: 10px;
+}
