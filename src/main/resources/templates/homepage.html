@@ -5,6 +5,27 @@
     <title>Pharmacy Inventory Homepage</title>
     <link rel="stylesheet" href="/css/homepage.css" />
   </head>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Display rows that match the search query (search by product name)
+      document.getElementById("search").addEventListener("keyup", function () {
+        const query = this.value.toLowerCase(); // Get the search query in lowercase
+        const rows = document.querySelectorAll("table tr");
+  
+        rows.forEach((row, index) => {
+          // Skip the header row
+          if (index === 0) return;
+  
+          const name = row.querySelector("td:nth-child(2)"); // Product Name column
+          if (name) {
+            const text = name.textContent.toLowerCase(); // Convert product name to lowercase
+            const match = text.includes(query); // Check if product name includes the query
+            row.style.display = match ? "" : "none"; // Show or hide the row
+          }
+        });
+      });
+    });
+  </script>
   <body>
     <!-- Navigation Bar -->
     <div class="navbar">
@@ -22,6 +43,16 @@
         products in the inventory.
       </p>
 
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search by product name..."
+        />
+      </div>
+
       <!-- Products table -->
       <table>
         <tr>
@@ -30,6 +61,7 @@
           <th style="width: 11%;">Product Type</th>
           <th style="width: 10%;">Quantity</th>
           <th style="width: 10%;">Price</th>
+          <th style="width: 10%;">Supplier</th>
         </tr>
         <tr th:each="product : ${products}">
           <td th:text="${product.id}">Product ID</td>
@@ -37,6 +69,7 @@
           <td th:text="${product.getProductType()}">Product Type</td>
           <td th:text="${product.quantity}">Quantity</td>
           <td th:text="'$' + ${product.price}">Price</td>
+          <td th:text="${product.supplier.name}">Supplier</td>
         </tr>
       </table>
   </body>
