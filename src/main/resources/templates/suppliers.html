@@ -24,6 +24,31 @@
           }
         });
       });
+      // Get the modal
+      var modal = document.getElementById("addSupplierModal");
+
+      // Get the add icon
+      var addIcon = document.querySelector(".add-icon");
+
+      // Get the <span> element that closes the modal
+      var closeBtn = document.querySelector(".modal .close");
+
+      // When the user clicks the add icon, open the modal
+      addIcon.onclick = function () {
+        modal.style.display = "block";
+      };
+
+      // When the user clicks on <span> (x), close the modal
+      closeBtn.onclick = function () {
+        modal.style.display = "none";
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
     });
   </script>
   <body>
@@ -51,7 +76,11 @@
           name="search"
           placeholder="Search by supplier name..."
         />
-        <img src="/images/addIcon.png" alt="Add New Supplier" class="add-icon" />
+        <img
+          src="/images/addIcon.png"
+          alt="Add New Supplier"
+          class="add-icon"
+        />
       </div>
 
       <!-- Equipments table -->
@@ -76,6 +105,22 @@
           </td>
         </tr>
       </table>
+    </div>
+    <!-- Modal Structure -->
+    <div id="addSupplierModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Supplier</h2>
+        <form th:action="@{/suppliers/add}" method="post" class="supplier-form">
+          <label for="name">Supplier Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="contact">Contact Number:</label>
+          <input type="text" id="contact" name="contact" required />
+
+          <button type="submit">Add Supplier</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

@@ -61,7 +61,7 @@ th {
   margin-bottom: 1rem; 
 }
 
-input[type="text"] {
+#search {
   padding: 8px; 
   width: 250px; 
   border-radius: 15px;
@@ -92,4 +92,73 @@ img {
   height: 35px;
   width: 35px;
   margin-left: 10px;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 1; /* Sit on top */
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto; /* 10% from the top and centered */
+  padding: 20px;
+  border-radius: 10px;
+  width: 40%; /* Could be any width depending on your needs */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.supplier-form {
+  flex-direction: column; 
+  gap: 15px;
+}
+
+label {
+  font-weight: bold; 
+}
+
+form input {
+  width: 100%; 
+  padding: 10px; 
+  box-sizing: border-box; 
+  margin: 10px 0 20px 0;
+}
+
+form button {
+  padding: 10px;
+  margin-top: 10px; 
+  width: 100%;
 }
