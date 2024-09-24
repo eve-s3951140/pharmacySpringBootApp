@@ -5,8 +5,8 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 
 import com.pharmacy.models.Supplier;
-import com.pharmacy.repositories.SupplierRepository;
 import com.pharmacy.services.SupplierService;
+import com.pharmacy.repositories.SupplierRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,8 +20,15 @@ public class SupplierServiceImpl implements SupplierService {
     this.supplierRepository = supplierRepository;
   }
 
+  // Get all the suppliers
   @Override
   public Collection<Supplier> getAllSuppliers() {
     return supplierRepository.findAll();
+  }
+
+  // Create a new supplier
+  @Override
+  public void createSupplier(Supplier supplier) {
+    supplierRepository.save(supplier);
   }
 }
