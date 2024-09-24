@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pharmacy Inventory Homepage</title>
+    <link rel="stylesheet" href="/css/homepage.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+      <a href="javascript:void(0)" class="active">Home</a>
+      <a href="/">Medicines</a>
+      <a href="/">Equipments</a>
+      <a href="/">Suppliers</a>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+      <h1>Welcome to Pharmacy Inventory Management System</h1>
+      <p>
+        There are <span th:text="${products.size()}">0</span>
+        products in the inventory.
+      </p>
+
+      <!-- Products table -->
+      <table>
+        <tr>
+          <th style="width: 5%;">Product ID</th>
+          <th>Product Name</th>
+          <th style="width: 11%;">Product Type</th>
+          <th style="width: 10%;">Quantity</th>
+          <th style="width: 10%;">Price</th>
+        </tr>
+        <tr th:each="product : ${products}">
+          <td th:text="${product.id}">Product ID</td>
+          <td th:text="${product.name}">Product Name</td>
+          <td th:text="${product.getProductType()}">Product Type</td>
+          <td th:text="${product.quantity}">Quantity</td>
+          <td th:text="'$' + ${product.price}">Price</td>
+        </tr>
+      </table>
+  </body>
+</html>
