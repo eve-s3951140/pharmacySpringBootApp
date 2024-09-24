@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Medicines</title>
+    <link rel="stylesheet" href="/css/pharmacy.css" />
+  </head>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Display rows that match the search query (search by medicine name)
+      document.getElementById("search").addEventListener("keyup", function () {
+        const query = this.value.toLowerCase(); // Get the search query in lowercase
+        const rows = document.querySelectorAll("table tr");
+
+        rows.forEach((row, index) => {
+          // Skip the header row
+          if (index === 0) return;
+
+          const name = row.querySelector("td:nth-child(2)"); // Medicine Name column
+          if (name) {
+            const text = name.textContent.toLowerCase(); // Convert medicine name to lowercase
+            const match = text.includes(query); // Check if medicine name includes the query
+            row.style.display = match ? "" : "none"; // Show or hide the row
+          }
+        });
+      });
+    });
+  </script>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+      <a href="/homepage">Home</a>
+      <a href="javascript:void(0)" class="active">Medicines</a>
+      <a href="/equipments">Equipments</a>
+      <a href="/suppliers">Suppliers</a>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+      <h1>Medicines</h1>
+      <p>
+        There are <span th:text="${medicines.size()}">0</span> medicines in the
+        inventory.
+      </p>
+
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search by medicine name..."
+        />
+      </div>
+
+      <!-- Medicines table -->
+      <table>
+        <tr>
+          <th style="width: 5%">Product ID</th>
+          <th>Medicine Name</th>
+          <th style="width: 5%">Quantity</th>
+          <th style="width: 7%">Price</th>
+          <th style="width: 5%">Expiry Date</th>
+          <th style="width: 10%">Manufacturer</th>
+          <th style="width: 10%">Supplier</th>
+          <th style="width: 10%">Actions</th>
+        </tr>
+        <tr th:each="medicine : ${medicines}">
+          <td th:text="${medicine.id}">Product ID</td>
+          <td th:text="${medicine.name}">Medicine Name</td>
+          <td th:text="${medicine.quantity}">Quantity</td>
+          <td class="price-column">
+            <span class="dollar-sign">$</span>
+            <span class="price" th:text="${medicine.price}">Price</span>
+          </td>
+          <td th:text="${medicine.expiryDate}">Expiry Date</td>
+          <td th:text="${medicine.manufacturer}">Manufacturer</td>
+          <td th:text="${medicine.supplier.name}">Supplier</td>
+          <td>
+            <button style="margin-right: 5px">
+              <img src="/images/editIcon.png" alt="Edit" />
+            </button>
+            <button>
+              <img src="/images/deleteIcon.png" alt="Delete" />
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

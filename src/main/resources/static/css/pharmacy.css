@@ -66,3 +66,23 @@ input[type="text"] {
   width: 250px; 
   border-radius: 15px;
 }
+
+button {
+  padding-left: 5px; 
+}
+
+img {
+  height: 20px;
+  width: 20px;
+}
+
+.dollar-sign {
+  float: left; 
+  margin-right: 1px;
+}
+
+.price {
+  float: right;
+  text-align: right;
+  white-space: nowrap; 
+}
