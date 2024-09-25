@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS products (
     product_type VARCHAR(31) NOT NULL,
     supplier_id INT NOT NULL,
     FOREIGN KEY (supplier_id) REFERENCES suppliers(id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
 );
 
 
@@ -20,6 +22,8 @@ CREATE TABLE IF NOT EXISTS medicines (
     manufacturer VARCHAR(255) NOT NULL,
     expiry_date DATE,
     FOREIGN KEY (id) REFERENCES products(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS equipments (
@@ -27,4 +31,6 @@ CREATE TABLE IF NOT EXISTS equipments (
     warranty VARCHAR(255),
     purchase_date DATE,
     FOREIGN KEY (id) REFERENCES products(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE
 );
