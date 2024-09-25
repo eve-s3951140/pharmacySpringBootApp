@@ -63,13 +63,13 @@
 
       <!-- Success or Error Messages -->
       <div th:if="${message != null}">
-        <script>
-          alert("Supplier added successfully!");
+        <script th:inline="javascript">
+            alert('[[${message}]]');
         </script>
       </div>
       <div th:if="${errorMessage != null}">
-        <script>
-          alert("Error: Supplier not added!");
+        <script th:inline="javascript">
+            alert('[[${errorMessage}]]');
         </script>
       </div>
 
@@ -110,7 +110,9 @@
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
             <button>
-              <img src="/images/deleteIcon.png" alt="Delete" />
+              <a th:href="@{/suppliers/delete/{id}(id=${supplier.id})}">
+                <img src="/images/deleteIcon.png" alt="Delete" />
+              </a>
             </button>
           </td>
         </tr>

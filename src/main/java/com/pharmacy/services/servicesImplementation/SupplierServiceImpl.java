@@ -31,4 +31,10 @@ public class SupplierServiceImpl implements SupplierService {
   public void createSupplier(Supplier supplier) {
     supplierRepository.save(supplier);
   }
+
+  // Delete a supplier
+  @Override
+  public void deleteSupplier(int id) {
+    supplierRepository.deleteById(id);
+  }
 }
