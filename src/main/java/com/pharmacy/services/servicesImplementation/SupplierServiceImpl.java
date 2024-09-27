@@ -30,7 +30,7 @@ public class SupplierServiceImpl implements SupplierService {
   @Override
   public void createSupplier(Supplier supplier) {
     // Check if the name or phone number of the supplier already used by another supplier
-    Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName());
+    Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName().trim());
     Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
 
     // If the name is used by another supplier
@@ -50,7 +50,7 @@ public class SupplierServiceImpl implements SupplierService {
   @Override
   public void updateSupplier(Supplier supplier) {
     // Check if the name or phone number of the supplier already used by another supplier
-    Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName());
+    Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName().trim());
     Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
 
     // If the name is used by another supplier
