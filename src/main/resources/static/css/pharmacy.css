@@ -98,14 +98,14 @@ img {
 
 /* Modal Styles */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
+  display: none;
+  position: fixed; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  z-index: 1; /* Sit on top */
+  width: 100%;
+  height: 100%; 
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1; 
 }
 
 .modal-content {
@@ -113,7 +113,7 @@ img {
   margin: 10% auto; /* 10% from the top and centered */
   padding: 20px;
   border-radius: 10px;
-  width: 40%; /* Could be any width depending on your needs */
+  width: 40%; 
 }
 
 .close {
