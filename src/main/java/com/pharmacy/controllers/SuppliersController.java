@@ -40,6 +40,18 @@ public class SuppliersController {
         return "redirect:/suppliers"; // Redirect to suppliers.html 
     }
 
+    // Update a supplier
+    @PostMapping("/suppliers/update")
+    public String updateSupplier(@ModelAttribute Supplier supplier, RedirectAttributes redirectAttributes) {
+        try {
+            supplierService.updateSupplier(supplier);
+            redirectAttributes.addFlashAttribute("message", "Supplier updated successfully");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error updating supplier: " + e.getMessage());
+        }
+        return "redirect:/suppliers"; // Redirect to suppliers.html
+    }
+
     // Delete a supplier
     @GetMapping("/suppliers/delete/{id}")
     public String deleteSupplier(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {

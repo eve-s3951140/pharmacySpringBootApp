@@ -11,6 +11,9 @@ public interface SupplierService {
   // Create a new supplier
   public void createSupplier(Supplier supplier);
 
+  // Update a supplier
+  public void updateSupplier(Supplier supplier);
+
   // Delete a supplier
   public void deleteSupplier(int id);
 }
