@@ -21,9 +21,8 @@ public class DataInitializer {
             insertSupplier("XYZ Medical", "0498563728");
             insertSupplier("PQR Supplies", "0417010404");
             insertSupplier("LMN Equipments", "0415102004");
-            insertSupplier("OPQ Instruments", "04071117");
-            insertSupplier("RST Devices", "04938641");
-            insertSupplier("UVW Tools", "0412345678");
+            insertSupplier("OPQ Instruments", "0407111755");
+            insertSupplier("RST Devices", "0493864123");
         }
 
         // Check and insert products if no products exist
