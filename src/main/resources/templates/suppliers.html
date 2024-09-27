@@ -21,31 +21,57 @@
           }
         });
       });
-      // Get the modal
-      var modal = document.getElementById("addSupplierModal");
+
+      // Get the modals
+      var addModal = document.getElementById("addSupplierModal");
+      var editModal = document.getElementById("editSupplierModal");
 
       // Get the add icon
       var addIcon = document.querySelector(".add-icon");
 
       // Get the <span> element that closes the modal
-      var closeBtn = document.querySelector(".modal .close");
+      var closeAddBtn = document.querySelector("#addSupplierModal .close");
+      var closeEditBtn = document.querySelector("#editSupplierModal .close");
 
-      // When the user clicks the add icon, open the modal
+      // When the user clicks the add icon, open the add modal
       addIcon.onclick = function () {
-        modal.style.display = "block";
+        addModal.style.display = "block";
       };
 
-      // When the user clicks on x, close the modal
-      closeBtn.onclick = function () {
-        modal.style.display = "none";
+      // Close the modals when the close buttons are clicked
+      closeAddBtn.onclick = function () {
+        addModal.style.display = "none";
+      };
+      closeEditBtn.onclick = function () {
+        editModal.style.display = "none";
       };
 
-      // When the user clicks anywhere outside of the modal, close it
+      // Close the modal when the user clicks outside of it
       window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
+        if (event.target == addModal) {
+          addModal.style.display = "none";
+        } else if (event.target == editModal) {
+          editModal.style.display = "none";
         }
       };
+
+      // Edit functionality
+      document.querySelectorAll(".edit-icon").forEach(function (editButton) {
+        editButton.addEventListener("click", function () {
+          const row = editButton.closest("tr");
+          const supplierId = row.querySelector("td:nth-child(1)").textContent;
+          const supplierName = row.querySelector("td:nth-child(2)").textContent;
+          const supplierContact = row.querySelector("td:nth-child(3)").textContent;
+
+          // Set the form values in the edit modal
+          document.getElementById("edit-id").value = supplierId;
+          document.getElementById("edit-name").value = supplierName;
+          document.getElementById("edit-contact").value = supplierContact;
+
+          // Show the edit modal
+          editModal.style.display = "block";
+        });
+      });
     });
   </script>
   <body>
@@ -106,7 +132,7 @@
           <td th:text="${supplier.name}">Supplier Name</td>
           <td th:text="${supplier.contact}">Contact</td>
           <td>
-            <button style="margin-right: 5px">
+            <button style="margin-right: 5px" class="edit-icon">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
             <button>
@@ -118,7 +144,8 @@
         </tr>
       </table>
     </div>
-    <!-- Modal Structure -->
+
+    <!-- Add Supplier Modal  -->
     <div id="addSupplierModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -128,9 +155,28 @@
           <input type="text" id="name" name="name" required />
 
           <label for="contact">Contact Number:</label>
-          <input type="text" id="contact" name="contact" required />
+          <input type="text" id="contact" name="contact" pattern="^04[0-9]{8}$" title="Phone number must start with 04 and be followed by 8 digits" required />
 
           <button type="submit">Add Supplier</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Supplier Modal -->
+    <div id="editSupplierModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Supplier</h2>
+        <form th:action="@{/suppliers/update}" method="post" class="supplier-form">
+          <input type="hidden" id="edit-id" name="id" />
+
+          <label for="edit-name">Supplier Name:</label>
+          <input type="text" id="edit-name" name="name" required />
+
+          <label for="edit-contact">Contact Number:</label>
+          <input type="text" id="edit-contact" name="contact" pattern="^04[0-9]{8}$" title="Phone number must start with 04 and be followed by 8 digits" required />
+
+          <button type="submit">Update Supplier</button>
         </form>
       </div>
     </div>
