@@ -26,9 +26,9 @@ public class SupplierServiceImpl implements SupplierService {
     return supplierRepository.findAll();
   }
 
-  // Create a new supplier or update an existing supplier
+  // Create a new supplier
   @Override
-  public void createOrUpdateSupplier(Supplier supplier) {
+  public void createSupplier(Supplier supplier) {
     // Check if the name or phone number of the supplier already used by another supplier
     Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName());
     Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
@@ -40,6 +40,26 @@ public class SupplierServiceImpl implements SupplierService {
 
     // If the phone number is used by another supplier
     if (supplierWithSamePhoneNumber != null) {
+      throw new RuntimeException("Phone number already used by another supplier");
+    }
+
+    supplierRepository.save(supplier);
+  }
+
+  // Update a supplier
+  @Override
+  public void updateSupplier(Supplier supplier) {
+    // Check if the name or phone number of the supplier already used by another supplier
+    Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName());
+    Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
+
+    // If the name is used by another supplier
+    if (supplierWithSameName != null && supplierWithSameName.getId() != supplier.getId()) {
+      throw new RuntimeException("Name already used by another supplier");
+    }
+
+    // If the phone number is used by another supplier
+    if (supplierWithSamePhoneNumber != null && supplierWithSamePhoneNumber.getId() != supplier.getId()) {
       throw new RuntimeException("Phone number already used by another supplier");
     }
 

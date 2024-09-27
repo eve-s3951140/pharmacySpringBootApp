@@ -32,7 +32,7 @@ public class SuppliersController {
     @PostMapping("/suppliers/add")
     public String addSupplier(@ModelAttribute Supplier supplier, RedirectAttributes redirectAttributes) {
         try {
-            supplierService.createOrUpdateSupplier(supplier);
+            supplierService.createSupplier(supplier);
             redirectAttributes.addFlashAttribute("message", "Supplier added successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error adding supplier: " + e.getMessage());
@@ -44,7 +44,7 @@ public class SuppliersController {
     @PostMapping("/suppliers/update")
     public String updateSupplier(@ModelAttribute Supplier supplier, RedirectAttributes redirectAttributes) {
         try {
-            supplierService.createOrUpdateSupplier(supplier);
+            supplierService.updateSupplier(supplier);
             redirectAttributes.addFlashAttribute("message", "Supplier updated successfully");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating supplier: " + e.getMessage());
