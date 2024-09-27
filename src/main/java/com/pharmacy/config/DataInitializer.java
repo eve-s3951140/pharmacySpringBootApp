@@ -16,13 +16,13 @@ public class DataInitializer {
     @PostConstruct
     public void init() {
         // Check and insert suppliers if they do not exist
-        insertIfNotExists("suppliers", "ABC Pharma", "123");
-        insertIfNotExists("suppliers", "XYZ Medical", "456");
-        insertIfNotExists("suppliers", "PQR Supplies", "789");
-        insertIfNotExists("suppliers", "LMN Equipments", "101112");
-        insertIfNotExists("suppliers", "OPQ Instruments", "131415");
-        insertIfNotExists("suppliers", "RST Devices", "161718");
-        insertIfNotExists("suppliers", "UVW Tools", "192021");
+        insertIfNotExists("suppliers", "ABC Pharma", "0412678947");
+        insertIfNotExists("suppliers", "XYZ Medical", "0498563728");
+        insertIfNotExists("suppliers", "PQR Supplies", "0417010404");
+        insertIfNotExists("suppliers", "LMN Equipments", "0415102004");
+        insertIfNotExists("suppliers", "OPQ Instruments", "04071117");
+        insertIfNotExists("suppliers", "RST Devices", "04938641");
+        insertIfNotExists("suppliers", "UVW Tools", "0412345678");
 
         // Check and insert products if they do not exist
         insertIfNotExistsProduct("Paracetamol", 100, 10.00, "Medicine", 1);
