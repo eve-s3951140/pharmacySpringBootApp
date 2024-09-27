@@ -27,12 +27,14 @@
 
       // Get the modals
       var addModal = document.getElementById("addMedicineModal");
+      var editModal = document.getElementById("editMedicineModal");
 
       // Get the add icon
       var addIcon = document.querySelector(".add-icon");
 
       // Get the <span> element that closes the modal
       var closeAddBtn = document.querySelector("#addMedicineModal .close");
+      var closeEditBtn = document.querySelector("#editMedicineModal .close");
 
       // When the user clicks the add icon, open the add modal
       addIcon.onclick = function () {
@@ -43,13 +45,55 @@
       closeAddBtn.onclick = function () {
         addModal.style.display = "none";
       };
+      closeEditBtn.onclick = function () {
+        editModal.style.display = "none";
+      };
 
       // Close the modal when the user clicks outside of it
       window.onclick = function (event) {
         if (event.target == addModal) {
           addModal.style.display = "none";
+        } else if (event.target == editModal) {
+          editModal.style.display = "none";
         }
       };
+
+      // Edit functionality
+      document.querySelectorAll(".edit-icon").forEach(function (editButton) {
+        editButton.addEventListener("click", function () {
+          const row = editButton.closest("tr");
+          const medicineId = row.querySelector("td:nth-child(1)").textContent;
+          const name = row.querySelector("td:nth-child(2)").textContent;
+          const quantity = row.querySelector("td:nth-child(3)").textContent;
+          const price = row.querySelector(".price").textContent;
+          const expiryDate = row.querySelector("td:nth-child(5)").textContent;
+          const manufacturer = row.querySelector("td:nth-child(6)").textContent;
+          const supplier = row.querySelector("td:nth-child(7)").textContent;
+
+          // Populate the edit form with the medicine details
+          document.getElementById("edit-id").value = medicineId;
+          document.getElementById("edit-name").value = name;
+          document.getElementById("edit-quantity").value = quantity;
+          document.getElementById("edit-price").value = price;
+          document.getElementById("edit-expiryDate").value = expiryDate;
+          document.getElementById("edit-manufacturer").value = manufacturer;
+          document.getElementById("edit-supplier").value = supplier;
+
+          // Update the supplier name in the label
+          document.getElementById("supplier-name").textContent = supplier;
+
+          editModal.style.display = "block";
+        });
+      });
+
+      // Add change event listener to update the supplier name in the label
+      document
+        .getElementById("edit-supplier")
+        .addEventListener("change", function () {
+          const selectedOption = this.options[this.selectedIndex];
+          const supplierName = selectedOption.text; // Get the text of the selected option
+          document.getElementById("supplier-name").textContent = supplierName; // Update the label
+        });
     });
   </script>
   <body>
@@ -121,7 +165,7 @@
           <td th:text="${medicine.manufacturer}">Manufacturer</td>
           <td th:text="${medicine.supplier.name}">Supplier</td>
           <td>
-            <button style="margin-right: 5px">
+            <button style="margin-right: 5px" class="edit-icon">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
             <button>
@@ -181,6 +225,73 @@
           </select>
 
           <button type="submit">Add Medicine</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Medicine Modal -->
+    <div id="editMedicineModal" class="modal">
+      <div class="modal-content" style="margin-top: 5%">
+        <span class="close">&times;</span>
+        <h2>Edit Medicine</h2>
+        <form
+          th:action="@{/medicines/update}"
+          method="post"
+          class="medicine-form"
+        >
+          <input type="hidden" id="edit-id" name="id" />
+
+          <label for="edit-name">Medicine Name:</label>
+          <input type="text" id="edit-name" name="name" required />
+
+          <label for="edit-quantity">Quantity:</label>
+          <input
+            type="number"
+            id="edit-quantity"
+            name="quantity"
+            min="1"
+            required
+          />
+
+          <label for="edit-price">Price:</label>
+          <input
+            type="number"
+            id="edit-price"
+            name="price"
+            step="0.01"
+            min="0.01"
+            required
+          />
+
+          <label for="edit-expiryDate">Expiry Date:</label>
+          <input type="date" id="edit-expiryDate" name="expiryDate" required />
+
+          <label for="edit-manufacturer">Manufacturer:</label>
+          <input
+            type="text"
+            id="edit-manufacturer"
+            name="manufacturer"
+            required
+          />
+
+          <label for="edit-supplier"
+            >Supplier: <span id="supplier-name"></span
+          ></label>
+          <select
+            id="edit-supplier"
+            name="supplier"
+            style="width: 100%; margin: 10px 0 20px 0"
+            required
+          >
+            <option value="">Select a supplier</option>
+            <option
+              th:each="supplier : ${suppliers}"
+              th:value="${supplier.id}"
+              th:text="${supplier.name}"
+            ></option>
+          </select>
+
+          <button type="submit">Update Supplier</button>
         </form>
       </div>
     </div>
