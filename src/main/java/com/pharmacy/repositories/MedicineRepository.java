@@ -1,12 +1,11 @@
 package com.pharmacy.repositories;
 
-import org.springframework.stereotype.Repository;
+import java.time.LocalDate;
 
 import com.pharmacy.models.Medicine;
 import com.pharmacy.models.Supplier;
 
-import java.time.LocalDate;
-
+import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository

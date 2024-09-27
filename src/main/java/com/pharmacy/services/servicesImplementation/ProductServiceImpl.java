@@ -2,12 +2,11 @@ package com.pharmacy.services.servicesImplementation;
 
 import java.util.Collection;
 
-import org.springframework.stereotype.Service;
-
 import com.pharmacy.models.Product;
-import com.pharmacy.repositories.ProductRepository;
 import com.pharmacy.services.ProductService;
+import com.pharmacy.repositories.ProductRepository;
 
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
