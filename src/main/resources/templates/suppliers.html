@@ -61,7 +61,8 @@
           const row = editButton.closest("tr");
           const supplierId = row.querySelector("td:nth-child(1)").textContent;
           const supplierName = row.querySelector("td:nth-child(2)").textContent;
-          const supplierContact = row.querySelector("td:nth-child(3)").textContent;
+          const supplierContact =
+            row.querySelector("td:nth-child(3)").textContent;
 
           // Set the form values in the edit modal
           document.getElementById("edit-id").value = supplierId;
@@ -155,7 +156,14 @@
           <input type="text" id="name" name="name" required />
 
           <label for="contact">Contact Number:</label>
-          <input type="text" id="contact" name="contact" pattern="^04[0-9]{8}$" title="Phone number must start with 04 and be followed by 8 digits" required />
+          <input
+            type="text"
+            id="contact"
+            name="contact"
+            pattern="^04[0-9]{8}$"
+            title="Phone number must start with 04 and be followed by 8 digits"
+            required
+          />
 
           <button type="submit">Add Supplier</button>
         </form>
@@ -167,14 +175,25 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Edit Supplier</h2>
-        <form th:action="@{/suppliers/update}" method="post" class="supplier-form">
+        <form
+          th:action="@{/suppliers/update}"
+          method="post"
+          class="supplier-form"
+        >
           <input type="hidden" id="edit-id" name="id" />
 
           <label for="edit-name">Supplier Name:</label>
           <input type="text" id="edit-name" name="name" required />
 
           <label for="edit-contact">Contact Number:</label>
-          <input type="text" id="edit-contact" name="contact" pattern="^04[0-9]{8}$" title="Phone number must start with 04 and be followed by 8 digits" required />
+          <input
+            type="text"
+            id="edit-contact"
+            name="contact"
+            pattern="^04[0-9]{8}$"
+            title="Phone number must start with 04 and be followed by 8 digits"
+            required
+          />
 
           <button type="submit">Update Supplier</button>
         </form>
