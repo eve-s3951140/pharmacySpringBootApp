@@ -49,6 +49,14 @@ public class SupplierServiceImpl implements SupplierService {
   // Update a supplier
   @Override
   public void updateSupplier(Supplier supplier) {
+    // Check if the supplier exists
+    Supplier existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
+
+    // If the supplier does not exist
+    if (existingSupplier == null) {
+      throw new RuntimeException("Supplier does not exist");
+    }
+
     // Check if the name or phone number of the supplier already used by another supplier
     Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName().trim());
     Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
@@ -69,6 +77,14 @@ public class SupplierServiceImpl implements SupplierService {
   // Delete a supplier
   @Override
   public void deleteSupplier(int id) {
+    // Check if the supplier exists
+    Supplier existingSupplier = supplierRepository.findById(id).orElse(null);
+
+    // If the supplier does not exist
+    if (existingSupplier == null) {
+      throw new RuntimeException("Supplier does not exist");
+    }
+
     supplierRepository.deleteById(id);
   }
 }
