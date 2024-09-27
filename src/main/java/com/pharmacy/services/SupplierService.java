@@ -8,11 +8,8 @@ public interface SupplierService {
   // Get all the suppliers
   public Collection<Supplier> getAllSuppliers();
 
-  // Create a new supplier
-  public void createSupplier(Supplier supplier);
-
-  // Update a supplier
-  public void updateSupplier(Supplier supplier);
+  // Create a new supplier or update an existing supplier
+  public void createOrUpdateSupplier(Supplier supplier);
 
   // Delete a supplier
   public void deleteSupplier(int id);
