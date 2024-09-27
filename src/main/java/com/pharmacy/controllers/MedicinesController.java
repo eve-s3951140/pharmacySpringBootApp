@@ -45,4 +45,16 @@ public class MedicinesController {
         }
         return "redirect:/medicines"; // Redirect to medicines.html 
     }
+
+    // Update a medicine
+    @PostMapping("/medicines/update")
+    public String updateMedicine(@ModelAttribute Medicine medicine, RedirectAttributes redirectAttributes) {
+        try {
+            medicineService.updateMedicine(medicine);
+            redirectAttributes.addFlashAttribute("message", "Medicine updated successfully");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error updating medicine: " + e.getMessage());
+        }
+        return "redirect:/medicines"; // Redirect to medicines.html
+    }
 }

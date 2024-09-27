@@ -10,4 +10,7 @@ public interface MedicineService {
 
   // Create a new medicine
   public void createMedicine(Medicine medicine);
+
+  // Update a medicine
+  public void updateMedicine(Medicine medicine);
 }

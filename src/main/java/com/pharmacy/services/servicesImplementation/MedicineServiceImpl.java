@@ -49,4 +49,36 @@ public class MedicineServiceImpl implements MedicineService {
 
     medicineRepository.save(medicine);
   }
+
+  // Update a medicine
+  @Override
+  public void updateMedicine(Medicine medicine) {
+    // Check if the medicine exists
+    Medicine existingMedicine = medicineRepository.findById(medicine.getId()).orElse(null);
+
+    // If the medicine does not exist
+    if (existingMedicine == null) {
+      throw new RuntimeException("The medicine does not exist");
+    }
+
+    // Check if a medicine with the same name, manufacturer, supplier, and expiry date already exists
+    Medicine duplicateMedicine = medicineRepository.findByNameAndManufacturerAndSupplierAndExpiryDate(
+        medicine.getName().trim(),
+        medicine.getManufacturer().trim(),
+        medicine.getSupplier(),
+        medicine.getExpiryDate()
+    );
+
+    // If a medicine with the same name, manufacturer, supplier, and expiry date already exists
+    if (duplicateMedicine != null && duplicateMedicine.getId() != medicine.getId()) {
+      throw new RuntimeException("The medicine with the same name, manufacturer, supplier, and expiry date already exists");
+    }
+
+    // Check if the expiry date is in the past
+    if (medicine.getExpiryDate().isBefore(java.time.LocalDate.now())) {
+      throw new RuntimeException("The expiry date cannot be in the past");
+    }
+
+    medicineRepository.save(medicine);
+  }
 }
