@@ -129,7 +129,7 @@ img {
   cursor: pointer;
 }
 
-button[type="submit"] {
+.submit-button {
   margin-top: 15px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -139,8 +139,18 @@ button[type="submit"] {
   border-radius: 5px;
 }
 
-button[type="submit"]:hover {
+.submit-button:hover {
   background-color: #0056b3;
+}
+
+/* Reset styles for the button with the class "default-button" */
+.default-button {
+  all: unset; /* Resets all styles */
+  padding: 0; /* Remove padding */
+  border: none; /* Remove border */
+  background: none; /* Remove background */
+  color: inherit; /* Use inherited text color */
+  cursor: pointer; /* Keep cursor as pointer */
 }
 
 .supplier-form {
