@@ -3,6 +3,8 @@ package com.pharmacy.controllers.integration;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.TestInstance;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
+import com.pharmacy.DatabaseCleaner;
 import com.pharmacy.models.Supplier;
 import com.pharmacy.models.Equipment;
 import com.pharmacy.services.SupplierService;
@@ -31,6 +34,7 @@ import com.pharmacy.repositories.EquipmentRepository;
 @Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestInstance(TestInstance.Lifecycle.PER_CLASS) // Allows non-static @AfterAll
 class EquipmentsControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
@@ -43,6 +47,15 @@ class EquipmentsControllerIntegrationTest {
 
     @Autowired
     private EquipmentRepository equipmentRepository;
+
+    @Autowired
+    private DatabaseCleaner databaseCleaner;
+
+    // Clean the database after all tests are done (reset the auto-increment values)
+    @AfterAll
+    void tearDownAll() {
+        databaseCleaner.clean();
+    }
 
     // Test the controller to add a new equipment
     @Test
