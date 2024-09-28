@@ -137,6 +137,7 @@ img {
   border: none;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 18px;
 }
 
 .submit-button:hover {
