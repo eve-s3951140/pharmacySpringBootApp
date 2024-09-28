@@ -13,4 +13,7 @@ public interface EquipmentService {
 
   // Update an equipment
   public void updateEquipment(Equipment equipment);
+
+  // Delete an equipment
+  public void deleteEquipment(int id);
 }

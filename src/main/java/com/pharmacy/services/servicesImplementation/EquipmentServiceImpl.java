@@ -62,4 +62,18 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     equipmentRepository.save(equipment);
   }
+
+  // Delete an equipment
+  @Override
+  public void deleteEquipment(int id) {
+    // Check if the equipment exists
+    Equipment existingEquipment = equipmentRepository.findById(id).orElse(null);
+
+    // If the equipment does not exist
+    if (existingEquipment == null) {
+      throw new RuntimeException("The equipment does not exist");
+    }
+
+    equipmentRepository.deleteById(id);
+  }
 }

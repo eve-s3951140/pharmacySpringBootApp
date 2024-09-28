@@ -116,6 +116,21 @@
           const supplierName = selectedOption.text; // Get the text of the selected option
           document.getElementById("supplier-name").textContent = supplierName; // Update the label
         });
+
+      // Delete confirmation
+      document.querySelectorAll(".delete-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          const equipment = event.target
+            .closest("button")
+            .getAttribute("data-equipment");
+          const confirmed = confirm(
+            `Are you sure you want to delete ${equipment}?`
+          );
+          if (!confirmed) {
+            event.preventDefault(); // Prevent form submission if not confirmed
+          }
+        });
+      });
     });
   </script>
   <body>
@@ -191,9 +206,19 @@
             <button style="margin-right: 5px" class="edit-icon" title="Click to edit the equipment">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
-            <button title="Click to delete the equipment">
-              <img src="/images/deleteIcon.png" alt="Delete" />
-            </button>
+            <form
+              th:action="@{/equipments/delete/{id}(id=${equipment.id})}"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="delete-button"
+                th:attr="data-equipment=${equipment.name} + ' - Warranty: ' + ${equipment.warranty} + ' - Supplier: ' + ${equipment.supplier.name} + ' - Purchase Date: ' + ${equipment.purchaseDate}"
+                title="Click to delete the equipment"
+              >
+                <img src="/images/deleteIcon.png" alt="Delete" />
+              </button>
+            </form>
           </td>
         </tr>
       </table>
