@@ -25,6 +25,21 @@
         });
       });
 
+      // Function to set the min attribute to today's date
+      function setMinDate() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0'); 
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        
+        const minDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+        document.getElementById("expiryDate").setAttribute("min", minDate);
+        document.getElementById("edit-expiryDate").setAttribute("min", minDate);
+      }
+
+      // Call the function on page load
+      window.onload = setMinDate();
+
       // Get the modals
       var addModal = document.getElementById("addMedicineModal");
       var editModal = document.getElementById("editMedicineModal");
