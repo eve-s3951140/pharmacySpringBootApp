@@ -1,5 +1,6 @@
 package com.pharmacy.services.servicesImplementation;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import com.pharmacy.models.Medicine;
@@ -19,6 +20,39 @@ public class MedicineServiceImpl implements MedicineService {
     this.medicineRepository = medicineRepository;
   }
 
+  // Validation helper methods
+  private void checkMedicineFields(Medicine medicine) {
+    if (medicine.getSupplier() == null) {
+      throw new RuntimeException("The supplier does not exist");
+    }
+    
+    if (medicine.getPrice() < 0 || medicine.getPrice() == null) {
+      throw new RuntimeException("The price cannot be negative");
+    }
+
+    if (medicine.getQuantity() < 0) {
+      throw new RuntimeException("The quantity cannot be negative");
+    }
+
+    if (medicine.getExpiryDate().isBefore(LocalDate.now())) {
+      throw new RuntimeException("The expiry date cannot be in the past");
+    }
+  }
+
+  // Check if a medicine with the same name, supplier, expiry date, and manufacturer
+  private void checkForDuplicateMedicine(Medicine medicine) {
+    Medicine existingMedicine = medicineRepository.findByNameAndManufacturerAndSupplierAndExpiryDate(
+        medicine.getName().trim(),
+        medicine.getManufacturer().trim(),
+        medicine.getSupplier(),
+        medicine.getExpiryDate());
+
+    if (existingMedicine != null) {
+      throw new RuntimeException(
+          "The medicine with the same name, supplier, expiry date, and manufacturer already exists");
+    }
+  }
+
   // Get all the medicines
   @Override
   public Collection<Medicine> getAllMedicines() {
@@ -28,26 +62,8 @@ public class MedicineServiceImpl implements MedicineService {
   // Create a new medicine
   @Override
   public void createMedicine(Medicine medicine) {
-    // Check if a medicine with the same name, manufacturer, supplier, and expiry
-    // date already exists
-    Medicine existingMedicine = medicineRepository.findByNameAndManufacturerAndSupplierAndExpiryDate(
-        medicine.getName().trim(),
-        medicine.getManufacturer().trim(),
-        medicine.getSupplier(),
-        medicine.getExpiryDate());
-
-    // If a medicine with the same name, manufacturer, supplier, and expiry date
-    // already exists
-    if (existingMedicine != null) {
-      throw new RuntimeException(
-          "The medicine with the same name, manufacturer, supplier, and expiry date already exists");
-    }
-
-    // Check if the expiry date is in the past
-    if (medicine.getExpiryDate().isBefore(java.time.LocalDate.now())) {
-      throw new RuntimeException("The expiry date cannot be in the past");
-    }
-
+    checkMedicineFields(medicine);
+    checkForDuplicateMedicine(medicine);
     medicineRepository.save(medicine);
   }
 
@@ -62,6 +78,9 @@ public class MedicineServiceImpl implements MedicineService {
       throw new RuntimeException("The medicine does not exist");
     }
 
+    // Check if the supplier does not exist
+    checkMedicineFields(medicine);
+
     // Check if a medicine with the same name, manufacturer, supplier, and expiry
     // date already exists
     Medicine duplicateMedicine = medicineRepository.findByNameAndManufacturerAndSupplierAndExpiryDate(
@@ -75,11 +94,6 @@ public class MedicineServiceImpl implements MedicineService {
     if (duplicateMedicine != null && duplicateMedicine.getId() != medicine.getId()) {
       throw new RuntimeException(
           "The medicine with the same name, manufacturer, supplier, and expiry date already exists");
-    }
-
-    // Check if the expiry date is in the past
-    if (medicine.getExpiryDate().isBefore(java.time.LocalDate.now())) {
-      throw new RuntimeException("The expiry date cannot be in the past");
     }
 
     medicineRepository.save(medicine);

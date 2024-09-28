@@ -51,7 +51,7 @@ class EquipmentsControllerIntegrationTest {
     @Autowired
     private DatabaseCleaner databaseCleaner;
 
-    // Clean the database after all tests are done (reset the auto-increment values)
+    // Reset the database to initial values after all tests are done
     @AfterAll
     void tearDownAll() {
         databaseCleaner.clean();
