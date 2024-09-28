@@ -16,7 +16,7 @@ public class HomepageController {
 
         // Get all the products from the database
         model.addAttribute("products", productService.getAllProducts());
-        
+
         return "homepage"; // This will return the homepage.html template
     }
 }

@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Integer> {
     // Find an equipment by name, supplier, purchase date, and warranty
-    public Equipment findByNameAndSupplierAndPurchaseDateAndWarranty(String name, Supplier supplier, LocalDate purchaseDate, String warranty);
+    public Equipment findByNameAndSupplierAndPurchaseDateAndWarranty(String name, Supplier supplier,
+            LocalDate purchaseDate, String warranty);
 }

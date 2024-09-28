@@ -45,25 +45,26 @@ class MedicinesControllerUnitTest {
     @Test
     void testDisplayPage() throws Exception {
         mockMvc.perform(get("/medicines"))
-            .andExpect(status().isOk())
-            .andExpect(model().attributeExists("medicines"))
-            .andExpect(model().attributeExists("suppliers"))
-            .andExpect(view().name("medicines"));
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("medicines"))
+                .andExpect(model().attributeExists("suppliers"))
+                .andExpect(view().name("medicines"));
     }
 
     // Test the controller to add a new medicine
     @Test
     void testAddMedicine_Success() throws Exception {
         mockMvc.perform(post("/medicines/add")
-            .flashAttr("medicine", new Medicine()))
-            .andExpect(redirectedUrl("/medicines"))
-            .andExpect(flash().attribute("message", "Medicine added successfully"));
+                .flashAttr("medicine", new Medicine()))
+                .andExpect(redirectedUrl("/medicines"))
+                .andExpect(flash().attribute("message", "Medicine added successfully"));
 
         // Verify that the createMedicine method is called only once
         verify(medicineService, times(1)).createMedicine(any(Medicine.class));
     }
 
-    // Test the controller to add a new medicine and expect an error when the service throws an exception
+    // Test the controller to add a new medicine and expect an error when the
+    // service throws an exception
     @Test
     void testAddMedicine_Failure() throws Exception {
         // Mock the createMedicine method to throw a RuntimeException when called
@@ -82,15 +83,16 @@ class MedicinesControllerUnitTest {
     @Test
     void testUpdateMedicine_Success() throws Exception {
         mockMvc.perform(post("/medicines/update")
-            .flashAttr("medicine", new Medicine()))
-            .andExpect(redirectedUrl("/medicines"))
-            .andExpect(flash().attribute("message", "Medicine updated successfully"));
+                .flashAttr("medicine", new Medicine()))
+                .andExpect(redirectedUrl("/medicines"))
+                .andExpect(flash().attribute("message", "Medicine updated successfully"));
 
         // Verify that the updateMedicine method is called only once
         verify(medicineService, times(1)).updateMedicine(any(Medicine.class));
     }
 
-    // Test the controller to update a medicine and expect an error when the service throws an exception
+    // Test the controller to update a medicine and expect an error when the service
+    // throws an exception
     @Test
     void testUpdateMedicine_Failure() throws Exception {
         // Mock the updateMedicine method to throw a RuntimeException when called
@@ -116,7 +118,8 @@ class MedicinesControllerUnitTest {
         verify(medicineService, times(1)).deleteMedicine(1);
     }
 
-    // Test the controller to delete an medicine by ID and expect an error when the service throws an exception
+    // Test the controller to delete an medicine by ID and expect an error when the
+    // service throws an exception
     @Test
     void testDeleteMedicine_Failure() throws Exception {
         // Mock the deleteMedicine method to throw a RuntimeException when called

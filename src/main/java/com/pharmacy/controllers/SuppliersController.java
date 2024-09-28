@@ -22,7 +22,7 @@ public class SuppliersController {
 
         // Get all the suppliers from the database
         model.addAttribute("suppliers", supplierService.getAllSuppliers());
-        
+
         return "suppliers"; // This will return the suppliers.html template
     }
 
@@ -35,7 +35,8 @@ public class SuppliersController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error adding supplier: " + e.getMessage());
         }
-        return "redirect:/suppliers"; // Redirect to suppliers.html 
+
+        return "redirect:/suppliers"; // Redirect to suppliers.html
     }
 
     // Update a supplier
@@ -47,6 +48,7 @@ public class SuppliersController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating supplier: " + e.getMessage());
         }
+
         return "redirect:/suppliers"; // Redirect to suppliers.html
     }
 
@@ -57,8 +59,10 @@ public class SuppliersController {
             supplierService.deleteSupplier(id);
             redirectAttributes.addFlashAttribute("message", "Supplier deleted successfully");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Error deleting supplier with ID: " + id + ", due to having associated products");
+            redirectAttributes.addFlashAttribute("errorMessage",
+                    "Error deleting supplier with ID: " + id + ", due to having associated products");
         }
+
         return "redirect:/suppliers"; // Redirect to suppliers.html
     }
 }

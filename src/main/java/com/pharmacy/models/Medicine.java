@@ -36,10 +36,13 @@ public class Medicine extends Product {
     }
 
     // Default no-argument constructor required by JPA
-    public Medicine() {}
+    public Medicine() {
+    }
 
-    // Constructor does not include ID because it is auto-generated from the Product class
-    public Medicine(String name, int quantity, Double price, Supplier supplier, String manufacturer, LocalDate expiryDate) {
+    // Constructor does not include ID because it is auto-generated from the Product
+    // class
+    public Medicine(String name, int quantity, Double price, Supplier supplier, String manufacturer,
+            LocalDate expiryDate) {
         super(name, quantity, price, supplier);
         this.manufacturer = manufacturer;
         this.expiryDate = expiryDate;

@@ -29,7 +29,7 @@ public class MedicinesController {
 
         // Get all the suppliers from the database
         model.addAttribute("suppliers", supplierService.getAllSuppliers());
-        
+
         return "medicines"; // This will return the medicines.html template
     }
 
@@ -42,7 +42,8 @@ public class MedicinesController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error adding medicine: " + e.getMessage());
         }
-        return "redirect:/medicines"; // Redirect to medicines.html 
+
+        return "redirect:/medicines"; // Redirect to medicines.html
     }
 
     // Update a medicine
@@ -54,6 +55,7 @@ public class MedicinesController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating medicine: " + e.getMessage());
         }
+
         return "redirect:/medicines"; // Redirect to medicines.html
     }
 
@@ -66,6 +68,7 @@ public class MedicinesController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error deleting medicine with ID: " + id);
         }
+
         return "redirect:/medicines"; // Redirect to medicines.html
     }
 }

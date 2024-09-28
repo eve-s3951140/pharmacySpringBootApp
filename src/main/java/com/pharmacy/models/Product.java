@@ -67,13 +67,14 @@ public abstract class Product {
     }
 
     // Default no-argument constructor required by JPA
-    protected Product() {}
+    protected Product() {
+    }
 
     // Constructor without ID because it is auto-generated
     protected Product(String name, int quantity, Double price, Supplier supplier) {
         this.name = name;
         this.quantity = quantity;
-        this.price = price != null ? price : 0.0;  // Assign a default value if null
+        this.price = price != null ? price : 0.0; // Assign a default value if null
         this.supplier = supplier;
     }
 

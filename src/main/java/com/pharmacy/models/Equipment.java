@@ -39,8 +39,10 @@ public class Equipment extends Product {
     public Equipment() {
     }
 
-    // Constructor does not include ID because it is auto-generated from the Product class
-    public Equipment(String warranty, LocalDate purchaseDate, String name, int quantity, Double price, Supplier supplier) {
+    // Constructor does not include ID because it is auto-generated from the Product
+    // class
+    public Equipment(String warranty, LocalDate purchaseDate, String name, int quantity, Double price,
+            Supplier supplier) {
         super(name, quantity, price, supplier);
         this.warranty = warranty;
         this.purchaseDate = purchaseDate;

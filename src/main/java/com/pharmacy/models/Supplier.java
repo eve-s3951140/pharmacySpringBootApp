@@ -42,7 +42,8 @@ public class Supplier {
     }
 
     // Default no-argument constructor required by JPA
-    public Supplier() {}
+    public Supplier() {
+    }
 
     // Constructor without ID because it is auto-generated
     public Supplier(String name, String contact) {

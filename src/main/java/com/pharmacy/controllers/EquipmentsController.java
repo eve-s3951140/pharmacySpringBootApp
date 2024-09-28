@@ -7,9 +7,9 @@ import com.pharmacy.services.EquipmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -29,7 +29,7 @@ public class EquipmentsController {
 
         // Get all the suppliers from the database
         model.addAttribute("suppliers", supplierService.getAllSuppliers());
-        
+
         return "equipments"; // This will return the equipments.html template
     }
 
@@ -42,7 +42,8 @@ public class EquipmentsController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error adding equipment: " + e.getMessage());
         }
-        return "redirect:/equipments"; // Redirect to equipments.html 
+
+        return "redirect:/equipments"; // Redirect to equipments.html
     }
 
     // Update an equipment
@@ -54,6 +55,7 @@ public class EquipmentsController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating equipment: " + e.getMessage());
         }
+
         return "redirect:/equipments"; // Redirect to equipments.html
     }
 
@@ -66,6 +68,7 @@ public class EquipmentsController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage", "Error deleting equipment with ID: " + id);
         }
+
         return "redirect:/equipments"; // Redirect to equipments.html
     }
 }

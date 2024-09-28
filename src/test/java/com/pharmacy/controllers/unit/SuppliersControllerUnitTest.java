@@ -44,28 +44,30 @@ class SuppliersControllerUnitTest {
     @Test
     void testDisplayPage() throws Exception {
         mockMvc.perform(get("/suppliers"))
-            .andExpect(status().isOk())
-            .andExpect(model().attributeExists("suppliers"))
-            .andExpect(view().name("suppliers"));
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("suppliers"))
+                .andExpect(view().name("suppliers"));
     }
-    
+
     // Test the controller to add a new supplier
     @Test
     void testAddSupplier_Success() throws Exception {
         mockMvc.perform(post("/suppliers/add")
-            .flashAttr("supplier", new Supplier()))
-            .andExpect(redirectedUrl("/suppliers"))
-            .andExpect(flash().attribute("message", "Supplier added successfully"));
+                .flashAttr("supplier", new Supplier()))
+                .andExpect(redirectedUrl("/suppliers"))
+                .andExpect(flash().attribute("message", "Supplier added successfully"));
 
         // Verify that the createSupplier method is called only once
         verify(supplierService, times(1)).createSupplier(any(Supplier.class));
     }
 
-    // Test the controller to add a new supplier and simulate an exception being thrown
+    // Test the controller to add a new supplier and simulate an exception being
+    // thrown
     @Test
     void testAddSupplier_Failure() throws Exception {
         // Mock the createSupplier method to throw an exception when called
-        doThrow(new RuntimeException("Error adding supplier")).when(supplierService).createSupplier(any(Supplier.class));
+        doThrow(new RuntimeException("Error adding supplier")).when(supplierService)
+                .createSupplier(any(Supplier.class));
 
         mockMvc.perform(post("/suppliers/add")
                 .flashAttr("supplier", new Supplier()))
@@ -80,19 +82,21 @@ class SuppliersControllerUnitTest {
     @Test
     void testUpdateSupplier_Success() throws Exception {
         mockMvc.perform(post("/suppliers/update")
-            .flashAttr("supplier", new Supplier()))
-            .andExpect(redirectedUrl("/suppliers"))
-            .andExpect(flash().attribute("message", "Supplier updated successfully"));
+                .flashAttr("supplier", new Supplier()))
+                .andExpect(redirectedUrl("/suppliers"))
+                .andExpect(flash().attribute("message", "Supplier updated successfully"));
 
         // Verify that the updateSupplier method is called only once
         verify(supplierService, times(1)).updateSupplier(any(Supplier.class));
     }
 
-    // Test the controller to update a supplier and simulate an exception being thrown
+    // Test the controller to update a supplier and simulate an exception being
+    // thrown
     @Test
     void testUpdateSupplier_Failure() throws Exception {
         // Mock the updateSupplier method to throw an exception when called
-        doThrow(new RuntimeException("Error updating supplier")).when(supplierService).updateSupplier(any(Supplier.class));
+        doThrow(new RuntimeException("Error updating supplier")).when(supplierService)
+                .updateSupplier(any(Supplier.class));
 
         mockMvc.perform(post("/suppliers/update")
                 .flashAttr("supplier", new Supplier()))
@@ -114,7 +118,8 @@ class SuppliersControllerUnitTest {
         verify(supplierService, times(1)).deleteSupplier(1);
     }
 
-    // Test the controller to delete a supplier by ID and simulate an exception being thrown
+    // Test the controller to delete a supplier by ID and simulate an exception
+    // being thrown
     @Test
     void testDeleteSupplier_Failure() throws Exception {
         // Mock the deleteSupplier method to throw an exception when called
@@ -122,7 +127,8 @@ class SuppliersControllerUnitTest {
 
         mockMvc.perform(get("/suppliers/delete/1"))
                 .andExpect(redirectedUrl("/suppliers"))
-                .andExpect(flash().attribute("errorMessage", "Error deleting supplier with ID: 1, due to having associated products"));
+                .andExpect(flash().attribute("errorMessage",
+                        "Error deleting supplier with ID: 1, due to having associated products"));
 
         // Verify that the deleteSupplier method of supplierService is called once
         verify(supplierService, times(1)).deleteSupplier(1);

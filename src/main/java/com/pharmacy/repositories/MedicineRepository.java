@@ -11,5 +11,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface MedicineRepository extends JpaRepository<Medicine, Integer> {
     // Find a medicine by name, manufacturer, supplier, and expiry date
-    public Medicine findByNameAndManufacturerAndSupplierAndExpiryDate(String name, String manufacturer, Supplier supplier, LocalDate expiryDate);
+    public Medicine findByNameAndManufacturerAndSupplierAndExpiryDate(String name, String manufacturer,
+            Supplier supplier, LocalDate expiryDate);
 }

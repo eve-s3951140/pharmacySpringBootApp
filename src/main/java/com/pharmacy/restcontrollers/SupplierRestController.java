@@ -28,4 +28,3 @@ public class SupplierRestController {
         return supplierRepository.findById(id).orElse(null);
     }
 }
-

@@ -28,17 +28,19 @@ public class EquipmentServiceImpl implements EquipmentService {
   // Create a new equipment
   @Override
   public void createEquipment(Equipment equipment) {
-    // Check if a medicine with the same name, manufacturer, supplier, and expiry date already exists
+    // Check if a medicine with the same name, manufacturer, supplier, and expiry
+    // date already exists
     Equipment existingeEquipment = equipmentRepository.findByNameAndSupplierAndPurchaseDateAndWarranty(
-      equipment.getName().trim(),
-      equipment.getSupplier(),
-      equipment.getPurchaseDate(),
-      equipment.getWarranty()
-    );
+        equipment.getName().trim(),
+        equipment.getSupplier(),
+        equipment.getPurchaseDate(),
+        equipment.getWarranty());
 
-    // If a equipment with the same name, supplier, purchase date, and warranty already exists
+    // If a equipment with the same name, supplier, purchase date, and warranty
+    // already exists
     if (existingeEquipment != null) {
-      throw new RuntimeException("The equipment with the same name, supplier, purchase date, and warranty already exists");
+      throw new RuntimeException(
+          "The equipment with the same name, supplier, purchase date, and warranty already exists");
     }
 
     // Check if the purchase date is in the future

@@ -28,7 +28,8 @@ public class SupplierServiceImpl implements SupplierService {
   // Create a new supplier
   @Override
   public void createSupplier(Supplier supplier) {
-    // Check if the name or phone number of the supplier already used by another supplier
+    // Check if the name or phone number of the supplier already used by another
+    // supplier
     Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName().trim());
     Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
 
@@ -56,7 +57,8 @@ public class SupplierServiceImpl implements SupplierService {
       throw new RuntimeException("Supplier does not exist");
     }
 
-    // Check if the name or phone number of the supplier already used by another supplier
+    // Check if the name or phone number of the supplier already used by another
+    // supplier
     Supplier supplierWithSameName = supplierRepository.findByName(supplier.getName().trim());
     Supplier supplierWithSamePhoneNumber = supplierRepository.findByContact(supplier.getContact());
 

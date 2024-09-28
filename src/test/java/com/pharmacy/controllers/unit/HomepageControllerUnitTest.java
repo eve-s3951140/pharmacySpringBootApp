@@ -31,8 +31,8 @@ class HomepageControllerUnitTest {
         when(productService.getAllProducts()).thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/homepage"))
-            .andExpect(status().isOk())
-            .andExpect(model().attributeExists("products"))
-            .andExpect(view().name("homepage"));
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("products"))
+                .andExpect(view().name("homepage"));
     }
 }
