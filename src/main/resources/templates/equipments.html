@@ -25,6 +25,11 @@
         });
       });
 
+      // Function to reset the add equipment form
+      function resetAddEquipmentsForm() {
+        document.getElementById("addEquipmentForm").reset();
+      }
+
       // Function to set the max attribute to today's date
       function setMaxDate() {
         const today = new Date();
@@ -56,12 +61,14 @@
       // Close the modal when the close button is clicked
       closeAddBtn.onclick = function () {
         addModal.style.display = "none";
+        resetAddEquipmentsForm();
       };
 
       // Close the modal when the user clicks outside of it
       window.onclick = function (event) {
         if (event.target == addModal) {
           addModal.style.display = "none";
+          resetAddEquipmentsForm();
         }
       };
     });

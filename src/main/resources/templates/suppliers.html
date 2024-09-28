@@ -22,6 +22,11 @@
         });
       });
 
+      // Function to reset the add supplier form
+      function resetAddSupplierForm() {
+        document.getElementById("addSupplierForm").reset();
+      }
+
       // Get the modals
       var addModal = document.getElementById("addSupplierModal");
       var editModal = document.getElementById("editSupplierModal");
@@ -41,6 +46,7 @@
       // Close the modals when the close buttons are clicked
       closeAddBtn.onclick = function () {
         addModal.style.display = "none";
+        resetAddSupplierForm();
       };
       closeEditBtn.onclick = function () {
         editModal.style.display = "none";
@@ -50,6 +56,7 @@
       window.onclick = function (event) {
         if (event.target == addModal) {
           addModal.style.display = "none";
+          resetAddSupplierForm();
         } else if (event.target == editModal) {
           editModal.style.display = "none";
         }
@@ -173,7 +180,12 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Add New Supplier</h2>
-        <form th:action="@{/suppliers/add}" method="post" class="supplier-form">
+        <form
+          th:action="@{/suppliers/add}"
+          method="post"
+          class="supplier-form"
+          id="addSupplierForm"
+        >
           <label for="name">Supplier Name:</label>
           <input type="text" id="name" name="name" required />
 

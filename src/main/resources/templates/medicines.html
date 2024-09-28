@@ -25,13 +25,18 @@
         });
       });
 
+      // Function to reset the add medicine form
+      function resetAddMedicineForm() {
+        document.getElementById("addMedicineForm").reset();
+      }
+
       // Function to set the min attribute to today's date
       function setMinDate() {
         const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0'); 
-        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, "0");
+        const month = String(today.getMonth() + 1).padStart(2, "0");
         const year = today.getFullYear();
-        
+
         const minDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
         document.getElementById("expiryDate").setAttribute("min", minDate);
         document.getElementById("edit-expiryDate").setAttribute("min", minDate);
@@ -56,18 +61,20 @@
         addModal.style.display = "block";
       };
 
-      // Close the modal when the close button is clicked
+      // Close the modal when the close button is clicked and reset the form
       closeAddBtn.onclick = function () {
         addModal.style.display = "none";
+        resetAddMedicineForm();
       };
       closeEditBtn.onclick = function () {
         editModal.style.display = "none";
       };
 
-      // Close the modal when the user clicks outside of it
+      // Close the modal when the user clicks outside of it and reset the form
       window.onclick = function (event) {
         if (event.target == addModal) {
           addModal.style.display = "none";
+          resetAddMedicineForm();
         } else if (event.target == editModal) {
           editModal.style.display = "none";
         }
