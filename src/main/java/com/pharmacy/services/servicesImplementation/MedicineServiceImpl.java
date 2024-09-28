@@ -80,4 +80,18 @@ public class MedicineServiceImpl implements MedicineService {
 
     medicineRepository.save(medicine);
   }
+
+  // Delete a medicine
+  @Override
+  public void deleteMedicine(int id) {
+    // Check if the medicine exists
+    Medicine existingMedicine = medicineRepository.findById(id).orElse(null);
+
+    // If the medicine does not exist
+    if (existingMedicine == null) {
+      throw new RuntimeException("The medicine does not exist");
+    }
+
+    medicineRepository.deleteById(id);
+  }
 }

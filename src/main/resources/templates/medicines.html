@@ -94,6 +94,21 @@
           const supplierName = selectedOption.text; // Get the text of the selected option
           document.getElementById("supplier-name").textContent = supplierName; // Update the label
         });
+
+      // Delete confirmation
+      document.querySelectorAll(".delete-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          const medicine = event.target
+            .closest("button")
+            .getAttribute("data-medicine");
+          const confirmed = confirm(
+            `Are you sure you want to delete ${medicine}?`
+          );
+          if (!confirmed) {
+            event.preventDefault(); // Prevent form submission if not confirmed
+          }
+        });
+      });
     });
   </script>
   <body>
@@ -164,13 +179,22 @@
           <td th:text="${medicine.expiryDate}">Expiry Date</td>
           <td th:text="${medicine.manufacturer}">Manufacturer</td>
           <td th:text="${medicine.supplier.name}">Supplier</td>
-          <td>
+          <td style="padding: 0 8px 8px 8px">
             <button style="margin-right: 5px" class="edit-icon">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
-            <button>
-              <img src="/images/deleteIcon.png" alt="Delete" />
-            </button>
+            <form
+              th:action="@{/medicines/delete/{id}(id=${medicine.id})}"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="delete-button"
+                th:attr="data-medicine=${medicine.name} + ' - ' + ${medicine.manufacturer} + ' - ' + ${medicine.supplier.name} + ' - ' + ${medicine.expiryDate}"
+              >
+                <img src="/images/deleteIcon.png" alt="Delete" />
+              </button>
+            </form>
           </td>
         </tr>
       </table>
@@ -224,7 +248,7 @@
             ></option>
           </select>
 
-          <button type="submit">Add Medicine</button>
+          <button type="submit" class="submit-button">Add Medicine</button>
         </form>
       </div>
     </div>
@@ -291,7 +315,7 @@
             ></option>
           </select>
 
-          <button type="submit">Update Supplier</button>
+          <button type="submit" class="submit-button">Update Supplier</button>
         </form>
       </div>
     </div>

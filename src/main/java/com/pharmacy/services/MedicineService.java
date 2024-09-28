@@ -13,4 +13,7 @@ public interface MedicineService {
 
   // Update a medicine
   public void updateMedicine(Medicine medicine);
+
+  // Delete a medicine
+  public void deleteMedicine(int id);
 }
