@@ -213,7 +213,7 @@
               <button
                 type="submit"
                 class="delete-button"
-                th:attr="data-medicine=${medicine.name} + ' - ' + ${medicine.manufacturer} + ' - ' + ${medicine.supplier.name} + ' - ' + ${medicine.expiryDate}"
+                th:attr="data-medicine=${medicine.name} + ' - Manufacturer: ' + ${medicine.manufacturer} + ' - Supplier: ' + ${medicine.supplier.name} + ' - Expiry Date:' + ${medicine.expiryDate}"
                 title="Click to delete the medicine"
               >
                 <img src="/images/deleteIcon.png" alt="Delete" />
