@@ -34,7 +34,7 @@ public class EquipmentsController {
 
     // Add a new equipment
     @PostMapping("/equipments/add")
-    public String addMedicine(@ModelAttribute Equipment equipment, RedirectAttributes redirectAttributes) {
+    public String addEquipment(@ModelAttribute Equipment equipment, RedirectAttributes redirectAttributes) {
         try {
             equipmentService.createEquipment(equipment);
             redirectAttributes.addFlashAttribute("message", "Equipment added successfully");
@@ -44,4 +44,15 @@ public class EquipmentsController {
         return "redirect:/equipments"; // Redirect to equipments.html 
     }
 
+    // Update an equipment
+    @PostMapping("/equipments/update")
+    public String updateEquipment(@ModelAttribute Equipment equipment, RedirectAttributes redirectAttributes) {
+        try {
+            equipmentService.updateEquipment(equipment);
+            redirectAttributes.addFlashAttribute("message", "Equipment updated successfully");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error updating equipment: " + e.getMessage());
+        }
+        return "redirect:/equipments"; // Redirect to equipments.html
+    }
 }

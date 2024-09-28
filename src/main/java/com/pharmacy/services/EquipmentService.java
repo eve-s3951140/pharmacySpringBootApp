@@ -10,4 +10,7 @@ public interface EquipmentService {
 
   // Create a new equipment
   public void createEquipment(Equipment equipment);
+
+  // Update an equipment
+  public void updateEquipment(Equipment equipment);
 }

@@ -48,4 +48,18 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     equipmentRepository.save(equipment);
   }
+
+  // Update an equipment
+  @Override
+  public void updateEquipment(Equipment equipment) {
+    // Check if the equipment exists
+    Equipment existingEquipment = equipmentRepository.findById(equipment.getId()).orElse(null);
+
+    // If the equipment does not exist
+    if (existingEquipment == null) {
+      throw new RuntimeException("The equipment does not exist");
+    }
+
+    equipmentRepository.save(equipment);
+  }
 }
