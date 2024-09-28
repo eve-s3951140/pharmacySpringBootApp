@@ -115,6 +115,7 @@
           src="/images/addIcon.png"
           alt="Add New Equipment"
           class="add-icon"
+          title="Click to add a new equipment"
         />
       </div>
 
@@ -142,10 +143,10 @@
           <td th:text="${equipment.purchaseDate}">Purchase Date</td>
           <td th:text="${equipment.supplier.name}">Supplier</td>
           <td>
-            <button style="margin-right: 5px">
+            <button style="margin-right: 5px" title="Click to edit the equipment">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
-            <button>
+            <button title="Click to delete the equipment">
               <img src="/images/deleteIcon.png" alt="Delete" />
             </button>
           </td>

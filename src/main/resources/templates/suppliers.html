@@ -139,6 +139,7 @@
           src="/images/addIcon.png"
           alt="Add New Supplier"
           class="add-icon"
+          title="Click to add a new supplier"
         />
       </div>
 
@@ -155,7 +156,7 @@
           <td th:text="${supplier.name}">Supplier Name</td>
           <td th:text="${supplier.contact}">Contact</td>
           <td style="padding: 0 8px 8px 8px">
-            <button style="margin-right: 5px" class="edit-icon">
+            <button style="margin-right: 5px" class="edit-icon" title="Click to edit the supplier">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
             <form
@@ -166,6 +167,7 @@
                 type="submit"
                 class="delete-button"
                 th:attr="data-supplier-name=${supplier.name}"
+                title="Click to delete the supplier"
               >
                 <img src="/images/deleteIcon.png" alt="Delete" />
               </button>
