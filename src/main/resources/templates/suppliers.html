@@ -73,6 +73,21 @@
           editModal.style.display = "block";
         });
       });
+
+
+      document.querySelectorAll(".delete-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          const supplierName = event.target
+            .closest("button")
+            .getAttribute("data-supplier-name");
+          const confirmed = confirm(
+            `Are you sure you want to delete ${supplierName}?`
+          );
+          if (!confirmed) {
+            event.preventDefault(); // Prevent form submission if not confirmed
+          }
+        });
+      });
     });
   </script>
   <body>
@@ -132,15 +147,22 @@
           <td th:text="${supplier.id}">Product ID</td>
           <td th:text="${supplier.name}">Supplier Name</td>
           <td th:text="${supplier.contact}">Contact</td>
-          <td>
+          <td style="padding: 0 8px 8px 8px">
             <button style="margin-right: 5px" class="edit-icon">
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
-            <button>
-              <a th:href="@{/suppliers/delete/{id}(id=${supplier.id})}">
+            <form
+              th:action="@{/suppliers/delete/{id}(id=${supplier.id})}"
+              style="display: inline"
+            >
+              <button
+                type="submit"
+                class="delete-button"
+                th:attr="data-supplier-name=${supplier.name}"
+              >
                 <img src="/images/deleteIcon.png" alt="Delete" />
-              </a>
-            </button>
+              </button>
+            </form>
           </td>
         </tr>
       </table>
@@ -165,7 +187,7 @@
             required
           />
 
-          <button type="submit">Add Supplier</button>
+          <button type="submit" class="submit-button">Add Supplier</button>
         </form>
       </div>
     </div>
@@ -195,7 +217,7 @@
             required
           />
 
-          <button type="submit">Update Supplier</button>
+          <button type="submit" class="submit-button">Update Supplier</button>
         </form>
       </div>
     </div>
