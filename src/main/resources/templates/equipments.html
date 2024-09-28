@@ -24,6 +24,46 @@
           }
         });
       });
+
+      // Function to set the max attribute to today's date
+      function setMaxDate() {
+        const today = new Date();
+        const day = String(today.getDate()).padStart(2, '0'); 
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const year = today.getFullYear();
+        
+        const maxDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
+        document.getElementById("purchaseDate").setAttribute("max", maxDate);
+      }
+
+      // Call the function on page load
+      window.onload = setMaxDate;
+
+      // Get the modals
+      var addModal = document.getElementById("addEquipmentModal");
+
+      // Get the button that opens the modals
+      var addIcon = document.querySelector(".add-icon");
+
+      // Get the <span> element that closes the modal
+      var closeAddBtn = document.querySelector("#addEquipmentModal .close");
+
+      // When the user clicks the add icon, open the add modal
+      addIcon.onclick = function () {
+        addModal.style.display = "block";
+      };
+
+      // Close the modal when the close button is clicked
+      closeAddBtn.onclick = function () {
+        addModal.style.display = "none";
+      };
+
+      // Close the modal when the user clicks outside of it
+      window.onclick = function (event) {
+        if (event.target == addModal) {
+          addModal.style.display = "none";
+        }
+      };
     });
   </script>
   <body>
@@ -38,6 +78,19 @@
     <!-- Page Content -->
     <div class="content">
       <h1>Equipments</h1>
+
+      <!-- Success or Error Messages -->
+      <div th:if="${message != null}">
+        <script th:inline="javascript">
+          alert('[[${message}]]');
+        </script>
+      </div>
+      <div th:if="${errorMessage != null}">
+        <script th:inline="javascript">
+          alert('[[${errorMessage}]]');
+        </script>
+      </div>
+
       <p>
         There are <span th:text="${equipments.size()}">0</span> equipments in
         the inventory.
@@ -51,7 +104,11 @@
           name="search"
           placeholder="Search by equipment name..."
         />
-        <img src="/images/addIcon.png" alt="Add New Equipment" class="add-icon" />
+        <img
+          src="/images/addIcon.png"
+          alt="Add New Equipment"
+          class="add-icon"
+        />
       </div>
 
       <!-- Equipments table -->
@@ -68,7 +125,7 @@
         </tr>
         <tr th:each="equipment : ${equipments}">
           <td th:text="${equipment.id}">Product ID</td>
-          <td th:text="${equipment.name}">Medicine Name</td>
+          <td th:text="${equipment.name}">Equipment Name</td>
           <td th:text="${equipment.quantity}">Quantity</td>
           <td class="price-column">
             <span class="dollar-sign">$</span>
@@ -87,6 +144,59 @@
           </td>
         </tr>
       </table>
+    </div>
+
+    <!-- Add Equipments Modal -->
+    <div id="addEquipmentModal" class="modal">
+      <div class="modal-content" style="margin-top: 5%">
+        <span class="close">&times;</span>
+        <h2>Add New Equipment</h2>
+        <form
+          th:action="@{/equipments/add}"
+          method="post"
+          class="equipment-form"
+          id="addEquipmentForm"
+        >
+          <label for="name">Equipment Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="quantity">Quantity:</label>
+          <input type="number" id="quantity" name="quantity" min="1" required />
+
+          <label for="price">Price:</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            step="0.01"
+            min="0.01"
+            required
+          />
+
+          <label for="warranty">Warranty:</label>
+          <input type="text" id="warranty" name="warranty" required />
+
+          <label for="purchaseDate">Purchase Date:</label>
+          <input type="date" id="purchaseDate" name="purchaseDate" required />
+
+          <label for="supplier">Supplier:</label>
+          <select
+            id="supplier"
+            name="supplier"
+            style="width: 100%; margin: 10px 0 20px 0"
+            required
+          >
+            <option value="">Select a supplier</option>
+            <option
+              th:each="supplier : ${suppliers}"
+              th:value="${supplier.id}"
+              th:text="${supplier.name}"
+            ></option>
+          </select>
+
+          <button type="submit" class="submit-button">Add Equipment</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>
