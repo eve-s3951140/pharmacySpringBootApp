@@ -1,5 +1,6 @@
 package com.pharmacy.services.servicesImplementation;
 
+import java.time.LocalDate;
 import java.util.Collection;
 
 import com.pharmacy.models.Equipment;
@@ -19,6 +20,39 @@ public class EquipmentServiceImpl implements EquipmentService {
     this.equipmentRepository = equipmentRepository;
   }
 
+  // Validation helper methods
+  private void checkEquipmentFields(Equipment equipment) {
+    if (equipment.getSupplier() == null) {
+      throw new RuntimeException("The supplier does not exist");
+    }
+    
+    if (equipment.getPrice() < 0 || equipment.getPrice() == null) {
+      throw new RuntimeException("The price cannot be negative");
+    }
+
+    if (equipment.getQuantity() < 0) {
+      throw new RuntimeException("The quantity cannot be negative");
+    }
+
+    if (equipment.getPurchaseDate().isAfter(LocalDate.now())) {
+      throw new RuntimeException("The purchase date cannot be in the future");
+    }
+  }
+
+  // Check if a equipment with the same name, supplier, purchase date, and warranty
+  private void checkForDuplicateEquipment(Equipment equipment) {
+    Equipment existingEquipment = equipmentRepository.findByNameAndSupplierAndPurchaseDateAndWarranty(
+        equipment.getName().trim(),
+        equipment.getSupplier(),
+        equipment.getPurchaseDate(),
+        equipment.getWarranty());
+
+    if (existingEquipment != null) {
+      throw new RuntimeException(
+          "The equipment with the same name, supplier, purchase date, and warranty already exists");
+    }
+  }
+
   // Get all the equipments
   @Override
   public Collection<Equipment> getAllEquipments() {
@@ -28,26 +62,8 @@ public class EquipmentServiceImpl implements EquipmentService {
   // Create a new equipment
   @Override
   public void createEquipment(Equipment equipment) {
-    // Check if a medicine with the same name, manufacturer, supplier, and expiry
-    // date already exists
-    Equipment existingeEquipment = equipmentRepository.findByNameAndSupplierAndPurchaseDateAndWarranty(
-        equipment.getName().trim(),
-        equipment.getSupplier(),
-        equipment.getPurchaseDate(),
-        equipment.getWarranty());
-
-    // If a equipment with the same name, supplier, purchase date, and warranty
-    // already exists
-    if (existingeEquipment != null) {
-      throw new RuntimeException(
-          "The equipment with the same name, supplier, purchase date, and warranty already exists");
-    }
-
-    // Check if the purchase date is in the future
-    if (equipment.getPurchaseDate().isAfter(java.time.LocalDate.now())) {
-      throw new RuntimeException("The purchase date cannot be in the future");
-    }
-
+    checkEquipmentFields(equipment);
+    checkForDuplicateEquipment(equipment);
     equipmentRepository.save(equipment);
   }
 
@@ -60,6 +76,24 @@ public class EquipmentServiceImpl implements EquipmentService {
     // If the equipment does not exist
     if (existingEquipment == null) {
       throw new RuntimeException("The equipment does not exist");
+    }
+
+    // Check the fields of the equipment
+    checkEquipmentFields(equipment);
+
+    // Check if a equipment with the same name, supplier, purchase date, and
+    // warranty already exists
+    Equipment duplicateEquipment = equipmentRepository.findByNameAndSupplierAndPurchaseDateAndWarranty(
+        equipment.getName().trim(),
+        equipment.getSupplier(),
+        equipment.getPurchaseDate(),
+        equipment.getWarranty());
+
+    // If a equipment with the same name, supplier, purchase date, and warranty
+    // already exists
+    if (duplicateEquipment != null && duplicateEquipment.getId() != equipment.getId()) {
+      throw new RuntimeException(
+          "The equipment with the same name, supplier, purchase date, and warranty already exists");
     }
 
     equipmentRepository.save(equipment);
