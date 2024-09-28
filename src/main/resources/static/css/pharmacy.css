@@ -143,14 +143,11 @@ img {
   background-color: #0056b3;
 }
 
-/* Reset styles for the button with the class "default-button" */
-.default-button {
-  all: unset; /* Resets all styles */
-  padding: 0; /* Remove padding */
-  border: none; /* Remove border */
-  background: none; /* Remove background */
-  color: inherit; /* Use inherited text color */
-  cursor: pointer; /* Keep cursor as pointer */
+.delete-button {
+  padding: 1px; 
+  width: 35px;
+  color: inherit; 
+  cursor: pointer; 
 }
 
 .supplier-form {
