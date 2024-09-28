@@ -85,10 +85,10 @@ To run the unit tests, use the following command:
 ```bash
 mvn test
 ```
-
 **Notes:**
 - The tests are located in the `src/test` directory.
 - The tests will not be able to run if the application is running.
+- When the application is run after the test is complete, the database is **reset** to the initial data.
 
 ## Usage
 ### Access the Application
