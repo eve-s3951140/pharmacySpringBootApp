@@ -57,7 +57,7 @@ class MedicinesControllerIntegrationTest {
         databaseCleaner.clean();
     }
 
-    // Test the controller to add a new medicine
+    // Test adding a new medicine will all valid parameters
     @Test
     void testAddMedicine_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
@@ -103,8 +103,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to add a new medicine and expect an error when the
-     * service throws an exception for duplicate medicine
+     * Test adding a new medicine and expect an error when the service throws an
+     * exception for duplicate medicine
      */
     @Test
     void testAddMedicine_Failure_WhenDuplicateEquipment() throws Exception {
@@ -134,8 +134,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to add a new medicine and expect an error when the
-     * service throws an exception for a negative price
+     * Test adding a new medicine and expect an error when the service throws an
+     * exception for a negative price
      */
     @Test
     void testAddMedicine_Failure_WhenPriceIsNegative() {
@@ -152,8 +152,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to add a new medicine and expect an error when the
-     * service throws an exception for a negative quantity
+     * Test adding a new medicine and expect an error when the service throws an
+     * exception for a negative quantity
      */
     @Test
     void testAddMedicine_Failure_WhenQuantityIsNegative() {
@@ -170,8 +170,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to add a new medicine and expect an error when the
-     * service throws an exception for an expiry date in the past
+     * Test adding a new medicine and expect an error when the service throws an
+     * exception for an expiry date in the past
      */
     @Test
     void testAddMedicine_Failure_WhenExpiryDateIsInPast() {
@@ -188,8 +188,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to add a new medicine and expect an error when the
-     * service throws an exception for a null supplier
+     * Test adding a new medicine and expect an error when the service throws an
+     * exception for a null supplier
      */
     @Test
     void testCreateMedicine_Failure_WhenSupplierIsNull() {
@@ -205,7 +205,7 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The supplier does not exist", exception.getMessage());
     }
 
-    // Test the controller to update a medicine
+    // Test updating a medicine with all valid parameters
     @Test
     void testUpdateMedicine_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
@@ -256,8 +256,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to update an medicine and expect an error when the
-     * service throws an exception for duplicate medicine
+     * Test updating an medicine and expect an error when the service throws an
+     * exception for duplicate medicine
      */
     @Test
     void testUpdateMedicine_Failure_WhenMedicineDoesNotExist() throws Exception {
@@ -295,8 +295,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to update an medicine and expect an error when the
-     * service throws an exception for a negative price
+     * Test updating an medicine and expect an error when the service throws an
+     * exception for a negative price
      */
     @Test
     void testUpdateEquipment_Failure_WhenPriceIsNegative() {
@@ -322,8 +322,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to update an medicine and expect an error when the
-     * service throws an exception for a negative quantity
+     * Test updating an medicine and expect an error when the service throws an
+     * exception for a negative quantity
      */
     @Test
     void testUpdateEquipment_Failure_WhenQuantityIsNegative() {
@@ -350,8 +350,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to update an medicine and expect an error when the
-     * service throws an exception for a purchase date in the past
+     * Test updating an medicine and expect an error when the service throws an
+     * exception for a purchase date in the past
      */
     @Test
     void testUpdateMedicine_Failure_WhenPurchaseDateIsInPast() {
@@ -375,8 +375,8 @@ class MedicinesControllerIntegrationTest {
     }
 
     /*
-     * Test the controller to update an medicine and expect an error when the
-     * service throws an exception for a null supplier
+     * Test updating an medicine and expect an error when the service throws an
+     * exception for a null supplier
      */
     @Test
     void testUpdateMedicine_Failure_WhenSupplierIsNull() {
@@ -400,7 +400,7 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The supplier does not exist", exception.getMessage());
     }
 
-    // Test the controller to delete a medicine by ID
+    // Test deleting a medicine by ID when the medicine exists
     @Test
     void testDeleteMedicine_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
@@ -422,10 +422,7 @@ class MedicinesControllerIntegrationTest {
         assertNull(deletedEquipment, "Medicine was not deleted successfully");
     }
 
-    /*
-     * Test the controller to delete a medicine by ID when the medicine does not
-     * exist
-     */
+    // Test deleting a medicine by ID when the medicine does not exist
     @Test
     void testDeleteMedicine_Failure_WhenMedicineDoesNotExist() throws Exception {
         int nonExistentId = 99999;
