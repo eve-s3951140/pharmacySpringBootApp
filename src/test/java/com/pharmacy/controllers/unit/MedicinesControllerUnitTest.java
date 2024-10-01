@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @WebMvcTest(MedicinesController.class)
 class MedicinesControllerUnitTest {
@@ -63,8 +65,14 @@ class MedicinesControllerUnitTest {
         verify(medicineService, times(1)).createMedicine(any(Medicine.class));
     }
 
-    // Test the controller to add a new medicine and expect an error when the
-    // service throws an exception
+    /**
+     * Test the controller to add a new medicine and expect an error when the
+     * service
+     * throws an exception when the createMedicine method is called with any
+     * Medicine object as an argument
+     * 
+     * @throws Exception
+     */
     @Test
     void testAddMedicine_Failure() throws Exception {
         // Mock the createMedicine method to throw a RuntimeException when called
@@ -82,7 +90,7 @@ class MedicinesControllerUnitTest {
     // Test the controller to update a medicine
     @Test
     void testUpdateMedicine_Success() throws Exception {
-        mockMvc.perform(post("/medicines/update")
+        mockMvc.perform(put("/medicines/update")
                 .flashAttr("medicine", new Medicine()))
                 .andExpect(redirectedUrl("/medicines"))
                 .andExpect(flash().attribute("message", "Medicine updated successfully"));
@@ -91,14 +99,18 @@ class MedicinesControllerUnitTest {
         verify(medicineService, times(1)).updateMedicine(any(Medicine.class));
     }
 
-    // Test the controller to update a medicine and expect an error when the service
-    // throws an exception
+    /**
+     * Test the controller to update a medicine and expect an error when the service
+     * throws an exception
+     * 
+     * @throws Exception
+     */
     @Test
     void testUpdateMedicine_Failure() throws Exception {
         // Mock the updateMedicine method to throw a RuntimeException when called
         doThrow(new RuntimeException("Error updating medicine")).when(medicineService).updateMedicine(any());
 
-        mockMvc.perform(post("/medicines/update")
+        mockMvc.perform(put("/medicines/update")
                 .flashAttr("medicine", new Medicine()))
                 .andExpect(redirectedUrl("/medicines"))
                 .andExpect(flash().attribute("errorMessage", "Error updating medicine: Error updating medicine"));
@@ -110,7 +122,7 @@ class MedicinesControllerUnitTest {
     // Test the controller to delete an medicine by ID
     @Test
     void testDeleteMedicine_Success() throws Exception {
-        mockMvc.perform(get("/medicines/delete/1"))
+        mockMvc.perform(delete("/medicines/delete/1"))
                 .andExpect(redirectedUrl("/medicines"))
                 .andExpect(flash().attribute("message", "Medicine deleted successfully"));
 
@@ -118,14 +130,18 @@ class MedicinesControllerUnitTest {
         verify(medicineService, times(1)).deleteMedicine(1);
     }
 
-    // Test the controller to delete an medicine by ID and expect an error when the
-    // service throws an exception
+    /**
+     * Test the controller to delete an medicine by ID and expect an error when the
+     * service throws an exception
+     * 
+     * @throws Exception
+     */
     @Test
     void testDeleteMedicine_Failure() throws Exception {
         // Mock the deleteMedicine method to throw a RuntimeException when called
         doThrow(new RuntimeException("Error deleting medicine")).when(medicineService).deleteMedicine(anyInt());
 
-        mockMvc.perform(get("/medicines/delete/1"))
+        mockMvc.perform(delete("/medicines/delete/1"))
                 .andExpect(redirectedUrl("/medicines"))
                 .andExpect(flash().attribute("errorMessage", "Error deleting medicine with ID: 1"));
 

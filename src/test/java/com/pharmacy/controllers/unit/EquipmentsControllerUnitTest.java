@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @WebMvcTest(EquipmentsController.class)
 class EquipmentsControllerUnitTest {
@@ -63,8 +65,12 @@ class EquipmentsControllerUnitTest {
         verify(equipmentService, times(1)).createEquipment(any(Equipment.class));
     }
 
-    // Test the controller to add a new equipment and expect an error when the
-    // service throws an exception
+    /**
+     * Test the controller to add a new equipment and expect an error when the
+     * service throws an exception
+     * 
+     * @throws Exception
+     */
     @Test
     void testAddEquipment_Failure() throws Exception {
         // Mock the createEquipment method to throw a RuntimeException when called
@@ -82,7 +88,7 @@ class EquipmentsControllerUnitTest {
     // Test the controller to update an equipment
     @Test
     void testUpdateEquipment_Success() throws Exception {
-        mockMvc.perform(post("/equipments/update")
+        mockMvc.perform(put("/equipments/update")
                 .flashAttr("equipment", new Equipment()))
                 .andExpect(redirectedUrl("/equipments"))
                 .andExpect(flash().attribute("message", "Equipment updated successfully"));
@@ -91,14 +97,18 @@ class EquipmentsControllerUnitTest {
         verify(equipmentService, times(1)).updateEquipment(any(Equipment.class));
     }
 
-    // Test the controller to update an equipment and expect an error when the
-    // service throws an exception
+    /**
+     * Test the controller to update an equipment and expect an error when the
+     * service throws an exception
+     * 
+     * @throws Exception
+     */
     @Test
     void testUpdateEquipment_Failure() throws Exception {
         // Mock the updateEquipment method to throw a RuntimeException when called
         doThrow(new RuntimeException("Error updating equipment")).when(equipmentService).updateEquipment(any());
 
-        mockMvc.perform(post("/equipments/update")
+        mockMvc.perform(put("/equipments/update")
                 .flashAttr("equipment", new Equipment()))
                 .andExpect(redirectedUrl("/equipments"))
                 .andExpect(flash().attribute("errorMessage", "Error updating equipment: Error updating equipment"));
@@ -110,7 +120,7 @@ class EquipmentsControllerUnitTest {
     // Test the controller to delete an equipment by ID
     @Test
     void testDeleteEquipment_Success() throws Exception {
-        mockMvc.perform(get("/equipments/delete/1"))
+        mockMvc.perform(delete("/equipments/delete/1"))
                 .andExpect(redirectedUrl("/equipments"))
                 .andExpect(flash().attribute("message", "Equipment deleted successfully"));
 
@@ -118,14 +128,18 @@ class EquipmentsControllerUnitTest {
         verify(equipmentService, times(1)).deleteEquipment(1);
     }
 
-    // Test the controller to delete an equipment by ID and expect an error when the
-    // service throws an exception
+    /**
+     * Test the controller to delete an equipment by ID and expect an error when the
+     * service throws an exception
+     * 
+     * @throws Exception
+     */
     @Test
     void testDeleteEquipment_Failure() throws Exception {
         // Mock the deleteEquipment method to throw a RuntimeException when called
         doThrow(new RuntimeException("Error deleting equipment")).when(equipmentService).deleteEquipment(anyInt());
 
-        mockMvc.perform(get("/equipments/delete/1"))
+        mockMvc.perform(delete("/equipments/delete/1"))
                 .andExpect(redirectedUrl("/equipments"))
                 .andExpect(flash().attribute("errorMessage", "Error deleting equipment with ID: 1"));
 

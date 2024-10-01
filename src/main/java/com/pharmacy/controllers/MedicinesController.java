@@ -5,8 +5,10 @@ import com.pharmacy.models.Medicine;
 import com.pharmacy.services.MedicineService;
 import com.pharmacy.services.SupplierService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,7 @@ public class MedicinesController {
     }
 
     // Update a medicine
-    @PostMapping("/medicines/update")
+    @PutMapping("/medicines/update")
     public String updateMedicine(@ModelAttribute Medicine medicine, RedirectAttributes redirectAttributes) {
         try {
             medicineService.updateMedicine(medicine);
@@ -60,7 +62,7 @@ public class MedicinesController {
     }
 
     // Delete a medicine
-    @GetMapping("/medicines/delete/{id}")
+    @DeleteMapping("/medicines/delete/{id}")
     public String deleteMedicine(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         try {
             medicineService.deleteMedicine(id);

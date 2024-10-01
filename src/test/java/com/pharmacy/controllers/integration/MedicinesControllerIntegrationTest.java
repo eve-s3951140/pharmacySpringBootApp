@@ -61,7 +61,7 @@ class MedicinesControllerIntegrationTest {
     @Test
     void testAddMedicine_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the equipment object with all required parameters
@@ -102,14 +102,16 @@ class MedicinesControllerIntegrationTest {
                         "Medicine expiry date is incorrect"));
     }
 
-    /*
+    /**
      * Test adding a new medicine and expect an error when the service throws an
-     * exception for duplicate medicine
+     * exception for a duplicate medicine
+     * 
+     * @throws Exception
      */
     @Test
     void testAddMedicine_Failure_WhenDuplicateEquipment() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the medicine object with all required parameters
@@ -133,7 +135,7 @@ class MedicinesControllerIntegrationTest {
                         "Error adding medicine: The medicine with the same name, supplier, expiry date, and manufacturer already exists"));
     }
 
-    /*
+    /**
      * Test adding a new medicine and expect an error when the service throws an
      * exception for a negative price
      */
@@ -143,7 +145,7 @@ class MedicinesControllerIntegrationTest {
         medicine.setPrice(-1.0); // Set a negative price
         medicine.setQuantity(10);
         medicine.setExpiryDate(LocalDate.now());
-        medicine.setSupplier(new Supplier("Test Supplier", "123456"));
+        medicine.setSupplier(new Supplier("Test Supplier", "0412345678"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             medicineService.createMedicine(medicine);
@@ -151,7 +153,7 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The price cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test adding a new medicine and expect an error when the service throws an
      * exception for a negative quantity
      */
@@ -161,7 +163,7 @@ class MedicinesControllerIntegrationTest {
         medicine.setPrice(10.0);
         medicine.setQuantity(-1); // Set a negative quantity
         medicine.setExpiryDate(LocalDate.now());
-        medicine.setSupplier(new Supplier("Test Supplier", "123456"));
+        medicine.setSupplier(new Supplier("Test Supplier", "0412345678"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             medicineService.createMedicine(medicine);
@@ -169,7 +171,7 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The quantity cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test adding a new medicine and expect an error when the service throws an
      * exception for an expiry date in the past
      */
@@ -179,7 +181,7 @@ class MedicinesControllerIntegrationTest {
         medicine.setPrice(10.0);
         medicine.setQuantity(10);
         medicine.setExpiryDate(LocalDate.now().minusDays(200)); // Set an expiry date in the past
-        medicine.setSupplier(new Supplier("Test Supplier", "123456"));
+        medicine.setSupplier(new Supplier("Test Supplier", "0412345678"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             medicineService.createMedicine(medicine);
@@ -187,7 +189,7 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The expiry date cannot be in the past", exception.getMessage());
     }
 
-    /*
+    /**
      * Test adding a new medicine and expect an error when the service throws an
      * exception for a null supplier
      */
@@ -209,7 +211,7 @@ class MedicinesControllerIntegrationTest {
     @Test
     void testUpdateMedicine_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the medicine object with all required parameters
@@ -224,7 +226,7 @@ class MedicinesControllerIntegrationTest {
         medicine.setExpiryDate(LocalDate.now().plusDays(100));
 
         // Perform a POST request to update the medicine
-        mockMvc.perform(MockMvcRequestBuilders.post("/medicines/update")
+        mockMvc.perform(MockMvcRequestBuilders.put("/medicines/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", String.valueOf(medicine.getId()))
                 .param("name", medicine.getName())
@@ -255,14 +257,14 @@ class MedicinesControllerIntegrationTest {
                         "Medicine expiry date is incorrect"));
     }
 
-    /*
+    /**
      * Test updating an medicine and expect an error when the service throws an
      * exception for duplicate medicine
      */
     @Test
     void testUpdateMedicine_Failure_WhenMedicineDoesNotExist() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the medicine object with all required parameters
@@ -280,7 +282,7 @@ class MedicinesControllerIntegrationTest {
         medicineRepository.delete(medicine);
 
         // Perform the POST request, simulating form submission with parameters
-        mockMvc.perform(MockMvcRequestBuilders.post("/medicines/update")
+        mockMvc.perform(MockMvcRequestBuilders.put("/medicines/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", String.valueOf(medicine.getId()))
                 .param("name", medicine.getName())
@@ -294,14 +296,14 @@ class MedicinesControllerIntegrationTest {
                 .andExpect(flash().attribute("errorMessage", "Error updating medicine: The medicine does not exist"));
     }
 
-    /*
+    /**
      * Test updating an medicine and expect an error when the service throws an
      * exception for a negative price
      */
     @Test
     void testUpdateEquipment_Failure_WhenPriceIsNegative() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid medicine first
@@ -321,14 +323,14 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The price cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test updating an medicine and expect an error when the service throws an
      * exception for a negative quantity
      */
     @Test
     void testUpdateEquipment_Failure_WhenQuantityIsNegative() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid equipment first
@@ -349,14 +351,14 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The quantity cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test updating an medicine and expect an error when the service throws an
      * exception for a purchase date in the past
      */
     @Test
     void testUpdateMedicine_Failure_WhenPurchaseDateIsInPast() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid medicine first
@@ -374,14 +376,14 @@ class MedicinesControllerIntegrationTest {
         assertEquals("The expiry date cannot be in the past", exception.getMessage());
     }
 
-    /*
+    /**
      * Test updating an medicine and expect an error when the service throws an
      * exception for a null supplier
      */
     @Test
     void testUpdateMedicine_Failure_WhenSupplierIsNull() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid medicine first
@@ -404,7 +406,7 @@ class MedicinesControllerIntegrationTest {
     @Test
     void testDeleteMedicine_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the medicine object with all required parameters
@@ -412,7 +414,7 @@ class MedicinesControllerIntegrationTest {
         medicineService.createMedicine(medicine);
 
         // Perform the GET request to delete the equipment
-        mockMvc.perform(MockMvcRequestBuilders.get("/medicines/delete/" + medicine.getId()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/medicines/delete/" + medicine.getId()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/medicines"))
                 .andExpect(flash().attribute("message", "Medicine deleted successfully"));
@@ -427,7 +429,7 @@ class MedicinesControllerIntegrationTest {
     void testDeleteMedicine_Failure_WhenMedicineDoesNotExist() throws Exception {
         int nonExistentId = 99999;
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/medicines/delete/" + nonExistentId))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/medicines/delete/" + nonExistentId))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/medicines"))
                 .andExpect(flash().attribute("errorMessage", "Error deleting medicine with ID: " + nonExistentId));

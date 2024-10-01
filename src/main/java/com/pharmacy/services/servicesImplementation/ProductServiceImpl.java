@@ -23,4 +23,10 @@ public class ProductServiceImpl implements ProductService {
   public Collection<Product> getAllProducts() {
     return productRepository.findAll();
   }
+
+  // Get a list of products by the supplier's id
+  @Override
+  public Collection<Product> getProductsBySupplierId(int supplierId) {
+    return productRepository.findBySupplierId(supplierId);
+  }
 }

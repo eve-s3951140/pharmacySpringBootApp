@@ -156,13 +156,19 @@
           <td th:text="${supplier.name}">Supplier Name</td>
           <td th:text="${supplier.contact}">Contact</td>
           <td style="padding: 0 8px 8px 8px">
-            <button style="margin-right: 5px" class="edit-icon" title="Click to edit the supplier">
+            <button
+              style="margin-right: 5px"
+              class="edit-icon"
+              title="Click to edit the supplier"
+            >
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
             <form
               th:action="@{/suppliers/delete/{id}(id=${supplier.id})}"
+              method="post"
               style="display: inline"
             >
+              <input type="hidden" name="_method" value="DELETE" />
               <button
                 type="submit"
                 class="delete-button"
@@ -216,6 +222,7 @@
           method="post"
           class="supplier-form"
         >
+          <input type="hidden" name="_method" value="PUT" />
           <input type="hidden" id="edit-id" name="id" />
 
           <label for="edit-name">Supplier Name:</label>

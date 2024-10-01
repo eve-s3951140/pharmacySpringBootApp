@@ -61,7 +61,7 @@ class EquipmentsControllerIntegrationTest {
     @Test
     void testAddEquipment_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the equipment object with all required parameters
@@ -84,7 +84,7 @@ class EquipmentsControllerIntegrationTest {
         Equipment savedEquipment = equipmentRepository.findByNameAndSupplierAndPurchaseDateAndWarranty(
                 equipment.getName(), equipment.getSupplier(), equipment.getPurchaseDate(), equipment.getWarranty());
 
-        /*
+        /**
          * Check if the saved equipment is not null and has the same attributes as the
          * equipment object
          */
@@ -101,14 +101,14 @@ class EquipmentsControllerIntegrationTest {
                         "Supplier ID is not equal"));
     }
 
-    /*
+    /**
      * Test the controller to add a new equipment and expect an error when the
      * service throws an exception for duplicate equipment
      */
     @Test
     void testAddEquipment_Failure_WhenDuplicateEquipment() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the equipment object with all required parameters
@@ -132,7 +132,7 @@ class EquipmentsControllerIntegrationTest {
                         "Error adding equipment: The equipment with the same name, supplier, purchase date, and warranty already exists"));
     }
 
-    /*
+    /**
      * Test the controller to add a new equipment and expect an error when the
      * service throws an exception for a negative price
      */
@@ -142,7 +142,7 @@ class EquipmentsControllerIntegrationTest {
         equipment.setPrice(-1.0); // Set a negative price
         equipment.setQuantity(10);
         equipment.setPurchaseDate(LocalDate.now());
-        equipment.setSupplier(new Supplier("Test Supplier", "123456"));
+        equipment.setSupplier(new Supplier("Test Supplier", "0412345678"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             equipmentService.createEquipment(equipment);
@@ -150,7 +150,7 @@ class EquipmentsControllerIntegrationTest {
         assertEquals("The price cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test the controller to add a new equipment and expect an error when the
      * service throws an exception for a negative quantity
      */
@@ -160,7 +160,7 @@ class EquipmentsControllerIntegrationTest {
         equipment.setPrice(199.99);
         equipment.setQuantity(-1); // Set a negative quantity
         equipment.setPurchaseDate(LocalDate.now());
-        equipment.setSupplier(new Supplier("Test Supplier", "123456"));
+        equipment.setSupplier(new Supplier("Test Supplier", "0412345678"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             equipmentService.createEquipment(equipment);
@@ -169,7 +169,7 @@ class EquipmentsControllerIntegrationTest {
         assertEquals("The quantity cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test the controller to add a new equipment and expect an error when the
      * service throws an exception for a purchase date in the future
      */
@@ -179,7 +179,7 @@ class EquipmentsControllerIntegrationTest {
         equipment.setPrice(199.99);
         equipment.setQuantity(10);
         equipment.setPurchaseDate(LocalDate.now().plusDays(1)); // Set a future purchase date
-        equipment.setSupplier(new Supplier("Test Supplier", "123456"));
+        equipment.setSupplier(new Supplier("Test Supplier", "0412345678"));
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             equipmentService.createEquipment(equipment);
@@ -187,7 +187,7 @@ class EquipmentsControllerIntegrationTest {
         assertEquals("The purchase date cannot be in the future", exception.getMessage());
     }
 
-    /*
+    /**
      * Test the controller to add a new equipment and expect an error when the
      * service throws an exception for a null supplier
      */
@@ -209,7 +209,7 @@ class EquipmentsControllerIntegrationTest {
     @Test
     void testUpdateEquipment_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the equipment object with all required parameters
@@ -223,8 +223,8 @@ class EquipmentsControllerIntegrationTest {
         equipment.setWarranty("2 years");
         equipment.setPurchaseDate(LocalDate.now().minusDays(1));
 
-        // Perform the POST request, simulating form submission with parameters
-        mockMvc.perform(MockMvcRequestBuilders.post("/equipments/update")
+        // Perform the PUT request, simulating form submission with parameters
+        mockMvc.perform(MockMvcRequestBuilders.put("/equipments/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", String.valueOf(equipment.getId()))
                 .param("name", equipment.getName())
@@ -240,7 +240,7 @@ class EquipmentsControllerIntegrationTest {
         // Check if the equipment was updated in the database
         Equipment updatedEquipment = equipmentRepository.findById(equipment.getId()).orElse(null);
 
-        /*
+        /**
          * Check if the updated equipment is not null and has the same attributes as
          * the equipment object
          */
@@ -257,14 +257,14 @@ class EquipmentsControllerIntegrationTest {
                         "Supplier ID is not equal"));
     }
 
-    /*
+    /**
      * Test the controller to update an equipment and expect an error when the
      * service throws an exception for duplicate equipment
      */
     @Test
     void testUpdateEquipment_Failure_WhenEquipmentDoesNotExist() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the equipment object with all required parameters
@@ -281,8 +281,8 @@ class EquipmentsControllerIntegrationTest {
         // Delete the equipment object to fail update due to the equipment not existing
         equipmentRepository.delete(equipment);
 
-        // Perform the POST request, simulating form submission with parameters
-        mockMvc.perform(MockMvcRequestBuilders.post("/equipments/update")
+        // Perform the PUT request, simulating form submission with parameters
+        mockMvc.perform(MockMvcRequestBuilders.put("/equipments/update")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", String.valueOf(equipment.getId()))
                 .param("name", equipment.getName())
@@ -296,14 +296,14 @@ class EquipmentsControllerIntegrationTest {
                 .andExpect(flash().attribute("errorMessage", "Error updating equipment: The equipment does not exist"));
     }
 
-    /*
+    /**
      * Test the controller to update an equipment and expect an error when the
      * service throws an exception for a negative price
      */
     @Test
     void testUpdateEquipment_Failure_WhenPriceIsNegative() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid equipment first
@@ -322,14 +322,14 @@ class EquipmentsControllerIntegrationTest {
         assertEquals("The price cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test the controller to update an equipment and expect an error when the
      * service throws an exception for a negative quantity
      */
     @Test
     void testUpdateEquipment_Failure_WhenQuantityIsNegative() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid equipment first
@@ -348,14 +348,14 @@ class EquipmentsControllerIntegrationTest {
         assertEquals("The quantity cannot be negative", exception.getMessage());
     }
 
-    /*
+    /**
      * Test the controller to update an equipment and expect an error when the
      * service throws an exception for a purchase date in the future
      */
     @Test
     void testUpdateEquipment_Failure_WhenPurchaseDateIsInFuture() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid equipment first
@@ -375,14 +375,14 @@ class EquipmentsControllerIntegrationTest {
         assertEquals("The purchase date cannot be in the future", exception.getMessage());
     }
 
-    /*
+    /**
      * Test the controller to update an equipment and expect an error when the
      * service throws an exception for a null supplier
      */
     @Test
     void testUpdateEquipment_Failure_WhenSupplierIsNull() {
         // Create a valid supplier first
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create a valid equipment first
@@ -405,7 +405,7 @@ class EquipmentsControllerIntegrationTest {
     @Test
     void testDeleteEquipment_Success() throws Exception {
         // Create a mock supplier or a real supplier object as needed
-        Supplier supplier = new Supplier("Test Supplier", "123456");
+        Supplier supplier = new Supplier("Test Supplier", "0412345678");
         supplierService.createSupplier(supplier);
 
         // Create the equipment object with all required parameters
@@ -413,7 +413,7 @@ class EquipmentsControllerIntegrationTest {
         equipmentService.createEquipment(equipment);
 
         // Perform the GET request to delete the equipment
-        mockMvc.perform(MockMvcRequestBuilders.get("/equipments/delete/" + equipment.getId()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/equipments/delete/" + equipment.getId()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/equipments"))
                 .andExpect(flash().attribute("message", "Equipment deleted successfully"));
@@ -423,7 +423,7 @@ class EquipmentsControllerIntegrationTest {
         assertNull(deletedEquipment, "Equipment was not deleted");
     }
 
-    /*
+    /**
      * Test the controller to delete an equipment by ID when the equipment does not
      * exist
      */
@@ -431,7 +431,7 @@ class EquipmentsControllerIntegrationTest {
     void testDeleteEquipment_Failure_WhenEquipmentDoesNotExist() throws Exception {
         int nonExistentId = 99999;
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/equipments/delete/" + nonExistentId))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/equipments/delete/" + nonExistentId))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/equipments"))
                 .andExpect(flash().attribute("errorMessage", "Error deleting equipment with ID: " + nonExistentId));

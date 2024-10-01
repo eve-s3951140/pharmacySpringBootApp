@@ -208,8 +208,10 @@
             </button>
             <form
               th:action="@{/medicines/delete/{id}(id=${medicine.id})}"
+              method="post"
               style="display: inline"
             >
+              <input type="hidden" name="_method" value="DELETE" />
               <button
                 type="submit"
                 class="delete-button"
@@ -287,6 +289,7 @@
           method="post"
           class="medicine-form"
         >
+          <input type="hidden" name="_method" value="PUT" />
           <input type="hidden" id="edit-id" name="id" />
 
           <label for="edit-name">Medicine Name:</label>
