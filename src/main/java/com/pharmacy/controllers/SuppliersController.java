@@ -5,8 +5,10 @@ import com.pharmacy.models.Supplier;
 import com.pharmacy.services.SupplierService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,7 +42,7 @@ public class SuppliersController {
     }
 
     // Update a supplier
-    @PostMapping("/suppliers/update")
+    @PutMapping("/suppliers/update")
     public String updateSupplier(@ModelAttribute Supplier supplier, RedirectAttributes redirectAttributes) {
         try {
             supplierService.updateSupplier(supplier);
@@ -53,14 +55,14 @@ public class SuppliersController {
     }
 
     // Delete a supplier
-    @GetMapping("/suppliers/delete/{id}")
+    @DeleteMapping("/suppliers/delete/{id}")
     public String deleteSupplier(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         try {
             supplierService.deleteSupplier(id);
             redirectAttributes.addFlashAttribute("message", "Supplier deleted successfully");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             redirectAttributes.addFlashAttribute("errorMessage",
-                    "Error deleting supplier with ID: " + id + ", due to having associated products");
+                    "Error deleting supplier with ID: " + id + ", due to " + e.getMessage());
         }
 
         return "redirect:/suppliers"; // Redirect to suppliers.html
