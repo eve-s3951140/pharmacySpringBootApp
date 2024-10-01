@@ -73,7 +73,7 @@ public class DataInitializer {
         String sql = "INSERT INTO suppliers (name, contact) VALUES (?, ?)";
         jdbcTemplate.update(sql, name, contact);
     }
-    
+
     // Helper method to check if products exist
     private boolean isProductsExist() {
         String sql = "SELECT COUNT(*) FROM products";
@@ -84,7 +84,7 @@ public class DataInitializer {
     // Helper method to insert data if it does not exist
     private void insertIfNotExistsProduct(String name, int quantity, double price, String productType, int supplierId) {
         String sql = "INSERT INTO products (name, quantity, price, product_type, supplier_id) SELECT ?, ?, ?, ?, ? " +
-                     "WHERE NOT EXISTS (SELECT 1 FROM products WHERE name = ?)";
+                "WHERE NOT EXISTS (SELECT 1 FROM products WHERE name = ?)";
         jdbcTemplate.update(sql, name, quantity, price, productType, supplierId, name);
     }
 
@@ -98,7 +98,7 @@ public class DataInitializer {
     // Helper method to insert data if it does not exist
     private void insertIfNotExistsMedicine(int id, String manufacturer, String expiryDate) {
         String sql = "INSERT INTO medicines (id, manufacturer, expiry_date) SELECT ?, ?, ? " +
-                     "WHERE NOT EXISTS (SELECT 1 FROM medicines WHERE id = ?)";
+                "WHERE NOT EXISTS (SELECT 1 FROM medicines WHERE id = ?)";
         jdbcTemplate.update(sql, id, manufacturer, expiryDate, id);
     }
 
@@ -112,7 +112,7 @@ public class DataInitializer {
     // Helper method to insert data if it does not exist
     private void insertIfNotExistsEquipment(int id, String warranty, String purchaseDate) {
         String sql = "INSERT INTO equipments (id, warranty, purchase_date) SELECT ?, ?, ? " +
-                     "WHERE NOT EXISTS (SELECT 1 FROM equipments WHERE id = ?)";
+                "WHERE NOT EXISTS (SELECT 1 FROM equipments WHERE id = ?)";
         jdbcTemplate.update(sql, id, warranty, purchaseDate, id);
     }
 }

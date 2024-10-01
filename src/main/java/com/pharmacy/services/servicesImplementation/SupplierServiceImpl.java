@@ -121,7 +121,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     // Check if the supplier has associated products
-    if (productRepository.findBySupplierId(id).size() > 0) {
+    if (!productRepository.findBySupplierId(id).isEmpty()) {
       throw new RuntimeException("supplier has associated products");
     }
 

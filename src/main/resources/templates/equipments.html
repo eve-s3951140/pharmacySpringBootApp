@@ -33,13 +33,15 @@
       // Function to set the max attribute to today's date
       function setMaxDate() {
         const today = new Date();
-        const day = String(today.getDate()).padStart(2, '0'); 
-        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, "0");
+        const month = String(today.getMonth() + 1).padStart(2, "0");
         const year = today.getFullYear();
-        
+
         const maxDate = `${year}-${month}-${day}`; // Format: YYYY-MM-DD
         document.getElementById("purchaseDate").setAttribute("max", maxDate);
-        document.getElementById("edit-purchaseDate").setAttribute("max", maxDate);
+        document
+          .getElementById("edit-purchaseDate")
+          .setAttribute("max", maxDate);
       }
 
       // Call the function on page load
@@ -203,7 +205,11 @@
           <td th:text="${equipment.purchaseDate}">Purchase Date</td>
           <td th:text="${equipment.supplier.name}">Supplier</td>
           <td>
-            <button style="margin-right: 5px" class="edit-icon" title="Click to edit the equipment">
+            <button
+              style="margin-right: 5px"
+              class="edit-icon"
+              title="Click to edit the equipment"
+            >
               <img src="/images/editIcon.png" alt="Edit" />
             </button>
             <form

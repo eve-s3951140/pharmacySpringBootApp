@@ -25,7 +25,7 @@ public class MedicineServiceImpl implements MedicineService {
     if (medicine.getSupplier() == null) {
       throw new RuntimeException("The supplier does not exist");
     }
-    
+
     if (medicine.getPrice() < 0 || medicine.getPrice() == null) {
       throw new RuntimeException("The price cannot be negative");
     }
@@ -39,7 +39,8 @@ public class MedicineServiceImpl implements MedicineService {
     }
   }
 
-  // Check if a medicine with the same name, supplier, expiry date, and manufacturer
+  // Check if a medicine with the same name, supplier, expiry date, and
+  // manufacturer
   private void checkForDuplicateMedicine(Medicine medicine) {
     Medicine existingMedicine = medicineRepository.findByNameAndManufacturerAndSupplierAndExpiryDate(
         medicine.getName().trim(),

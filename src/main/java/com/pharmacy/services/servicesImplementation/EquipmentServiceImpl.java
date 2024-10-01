@@ -25,7 +25,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     if (equipment.getSupplier() == null) {
       throw new RuntimeException("The supplier does not exist");
     }
-    
+
     if (equipment.getPrice() < 0 || equipment.getPrice() == null) {
       throw new RuntimeException("The price cannot be negative");
     }
@@ -39,7 +39,8 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
   }
 
-  // Check if a equipment with the same name, supplier, purchase date, and warranty
+  // Check if a equipment with the same name, supplier, purchase date, and
+  // warranty
   private void checkForDuplicateEquipment(Equipment equipment) {
     Equipment existingEquipment = equipmentRepository.findByNameAndSupplierAndPurchaseDateAndWarranty(
         equipment.getName().trim(),
