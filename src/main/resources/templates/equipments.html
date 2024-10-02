@@ -82,6 +82,54 @@
         }
       };
 
+      // Function to handle warranty input and set combined value
+      const handleWarrantyInput = (
+        formId,
+        warrantyValueId,
+        warrantyUnitId,
+        combinedWarrantyId
+      ) => {
+        document
+          .getElementById(formId)
+          .addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get values from inputs
+            const warrantyValue =
+              document.getElementById(warrantyValueId).value;
+            let warrantyUnit = document.getElementById(warrantyUnitId).value;
+
+            // If the warranty value is 1, remove the 's' from the unit
+            if (warrantyValue === "1") {
+              warrantyUnit = warrantyUnit.slice(0, -1);
+            }
+
+            // Combine them into a single string
+            const combinedWarranty = `${warrantyValue} ${warrantyUnit}`;
+
+            // Set the combined value to the hidden input
+            document.getElementById(combinedWarrantyId).value =
+              combinedWarranty;
+
+            // Submit the form
+            this.submit(); // Proceed with the form submission
+          });
+      };
+
+      // Initialize the warranty handling for both add and edit forms
+      handleWarrantyInput(
+        "addEquipmentForm",
+        "warrantyValue",
+        "warrantyUnit",
+        "warranty"
+      );
+      handleWarrantyInput(
+        "editEquipmentModal",
+        "edit-warrantyValue",
+        "edit-warrantyUnit",
+        "edit-warranty"
+      );
+
       // Edit functionality
       document.querySelectorAll(".edit-icon").forEach(function (editButton) {
         editButton.addEventListener("click", function () {
@@ -99,7 +147,22 @@
           document.getElementById("edit-name").value = name;
           document.getElementById("edit-quantity").value = quantity;
           document.getElementById("edit-price").value = price;
+
+          // Parse the warranty string
+          let [value, unit] = warranty.split(" "); // Assuming warranty is in the format "X unit"
+
+          // If the unit is singular, add the 's' back
+          if (value === "1") {
+            unit += "s";
+          }
+
+          // Set warranty value and unit in the input/select
+          document.getElementById("edit-warrantyValue").value = value; // Set the number part
+          document.getElementById("edit-warrantyUnit").value = unit; // Set the unit part (days/months/years)
+
+          // Populate the hidden warranty input with the combined value 
           document.getElementById("edit-warranty").value = warranty;
+
           document.getElementById("edit-purchaseDate").value = purchaseDate;
           document.getElementById("edit-supplier").value = supplier;
 
@@ -260,7 +323,29 @@
           />
 
           <label for="warranty">Warranty:</label>
-          <input type="text" id="warranty" name="warranty" required />
+          <div style="display: flex; align-items: center">
+            <input
+              type="number"
+              id="warrantyValue"
+              name="warrantyValue"
+              min="1"
+              required
+              placeholder="Amount"
+              style="width: max-content; margin-right: 10px"
+            />
+            <select
+              name="warrantyUnit"
+              id="warrantyUnit"
+              required
+              style="height: 40px; padding: 10px; margin-bottom: 10px"
+            >
+              <option value="days">Days</option>
+              <option value="months">Months</option>
+              <option value="years">Years</option>
+            </select>
+          </div>
+          <input type="hidden" name="warranty" id="warranty" />
+          <!-- Hidden input to store combined value -->
 
           <label for="purchaseDate">Purchase Date:</label>
           <input type="date" id="purchaseDate" name="purchaseDate" required />
@@ -321,7 +406,28 @@
           />
 
           <label for="edit-warranty">Warranty:</label>
-          <input type="text" id="edit-warranty" name="warranty" required />
+          <div style="display: flex; align-items: center">
+            <input
+              type="number"
+              id="edit-warrantyValue"
+              name="warrantyValue"
+              min="1"
+              required
+              placeholder="Amount"
+              style="width: max-content; margin-right: 10px"
+            />
+            <select
+              name="warrantyUnit"
+              id="edit-warrantyUnit"
+              required
+              style="height: 40px; padding: 10px; margin-bottom: 10px"
+            >
+              <option value="days">Days</option>
+              <option value="months">Months</option>
+              <option value="years">Years</option>
+            </select>
+          </div>
+          <input type="hidden" name="warranty" id="edit-warranty" />
 
           <label for="edit-purchaseDate">Purchase Date:</label>
           <input
