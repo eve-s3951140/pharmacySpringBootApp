@@ -35,3 +35,5 @@ build/
 # Ignore H2 database files
 *.mv.db
 *.trace.db
+
+.DS_Store
