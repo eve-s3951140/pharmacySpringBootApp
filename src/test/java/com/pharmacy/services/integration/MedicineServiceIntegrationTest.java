@@ -9,8 +9,8 @@ import static org.mockito.Mockito.*;
 
 import com.pharmacy.models.Supplier;
 import com.pharmacy.models.Medicine;
-import com.pharmacy.repositories.MedicineRepository;
 import com.pharmacy.services.MedicineService;
+import com.pharmacy.repositories.MedicineRepository;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
