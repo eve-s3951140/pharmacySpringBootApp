@@ -18,8 +18,9 @@ public class SupplierServiceImpl implements SupplierService {
   private ProductRepository productRepository;
 
   @Autowired
-  public SupplierServiceImpl(SupplierRepository supplierRepository) {
+  public SupplierServiceImpl(SupplierRepository supplierRepository, ProductRepository productRepository) {
     this.supplierRepository = supplierRepository;
+    this.productRepository = productRepository;
   }
 
   @Autowired
