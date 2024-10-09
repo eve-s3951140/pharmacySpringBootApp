@@ -42,10 +42,10 @@ public class DataInitializer {
 
         // Check and insert medicines if no medicines exist
         if (!isMedicinesExist()) {
-            insertIfNotExistsMedicine(1, "Pfizer", "2023-12-31");
-            insertIfNotExistsMedicine(2, "Bayer", "2023-12-31");
-            insertIfNotExistsMedicine(3, "GSK", "2023-12-31");
-            insertIfNotExistsMedicine(4, "J&J", "2023-12-31");
+            insertIfNotExistsMedicine(1, "Pfizer", "2026-12-31");
+            insertIfNotExistsMedicine(2, "Bayer", "2026-12-31");
+            insertIfNotExistsMedicine(3, "GSK", "2026-12-31");
+            insertIfNotExistsMedicine(4, "J&J", "2026-12-31");
         }
 
         // Check and insert equipments if no equipments exist
