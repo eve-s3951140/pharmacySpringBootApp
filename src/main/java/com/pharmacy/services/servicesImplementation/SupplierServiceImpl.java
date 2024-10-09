@@ -118,12 +118,12 @@ public class SupplierServiceImpl implements SupplierService {
 
     // If the supplier does not exist
     if (existingSupplier == null) {
-      throw new RuntimeException("supplier does not exist");
+      throw new RuntimeException("Supplier does not exist");
     }
 
     // Check if the supplier has associated products
     if (!productRepository.findBySupplierId(id).isEmpty()) {
-      throw new RuntimeException("supplier has associated products");
+      throw new RuntimeException("Supplier has associated products");
     }
 
     supplierRepository.deleteById(id);
