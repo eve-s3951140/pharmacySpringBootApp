@@ -128,7 +128,7 @@ class SupplierServiceUnitTest {
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> supplierService.deleteSupplier(supplier.getId()));
 
-        assertEquals("supplier does not exist", exception.getMessage());
+        assertEquals("Supplier does not exist", exception.getMessage());
         verify(supplierRepository, never()).deleteById(anyInt());
     }
 
@@ -143,7 +143,7 @@ class SupplierServiceUnitTest {
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> supplierService.deleteSupplier(supplier.getId()));
 
-        assertEquals("supplier has associated products", exception.getMessage());
+        assertEquals("Supplier has associated products", exception.getMessage());
         verify(supplierRepository, never()).deleteById(anyInt());
     }
 }

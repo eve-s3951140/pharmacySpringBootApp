@@ -363,7 +363,7 @@ class SuppliersControllerIntegrationTest {
                                 .andExpect(status().is3xxRedirection())
                                 .andExpect(redirectedUrl("/suppliers"))
                                 .andExpect(flash().attribute("errorMessage", "Error deleting supplier with ID: "
-                                                + supplier.getId() + ", due to supplier has associated products"));
+                                                + supplier.getId() + ", due to Supplier has associated products"));
 
                 // Check that the supplier is not deleted due to associated products
                 assertTrue(supplierRepository.findById(supplier.getId()).isPresent(),
@@ -378,6 +378,6 @@ class SuppliersControllerIntegrationTest {
                                 .andExpect(status().is3xxRedirection())
                                 .andExpect(redirectedUrl("/suppliers"))
                                 .andExpect(flash().attribute("errorMessage",
-                                                "Error deleting supplier with ID: 9999999, due to supplier does not exist"));
+                                                "Error deleting supplier with ID: 9999999, due to Supplier does not exist"));
         }
 }
