@@ -89,31 +89,28 @@
         warrantyUnitId,
         combinedWarrantyId
       ) => {
-        document
-          .getElementById(formId)
-          .addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent the default form submission
+        const form = document.getElementById(formId); // Store a reference to the form
+        form.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
 
-            // Get values from inputs
-            const warrantyValue =
-              document.getElementById(warrantyValueId).value;
-            let warrantyUnit = document.getElementById(warrantyUnitId).value;
+          // Get values from inputs
+          const warrantyValue = document.getElementById(warrantyValueId).value;
+          let warrantyUnit = document.getElementById(warrantyUnitId).value;
 
-            // If the warranty value is 1, remove the 's' from the unit
-            if (warrantyValue === "1") {
-              warrantyUnit = warrantyUnit.slice(0, -1);
-            }
+          // If the warranty value is 1, remove the 's' from the unit
+          if (warrantyValue === "1") {
+            warrantyUnit = warrantyUnit.slice(0, -1);
+          }
 
-            // Combine them into a single string
-            const combinedWarranty = `${warrantyValue} ${warrantyUnit}`;
+          // Combine them into a single string
+          const combinedWarranty = `${warrantyValue} ${warrantyUnit}`;
 
-            // Set the combined value to the hidden input
-            document.getElementById(combinedWarrantyId).value =
-              combinedWarranty;
+          // Set the combined value to the hidden input
+          document.getElementById(combinedWarrantyId).value = combinedWarranty;
 
-            // Submit the form
-            this.submit(); // Proceed with the form submission
-          });
+          // Submit the form
+          form.submit(); // Use the stored reference to the form
+        });
       };
 
       // Initialize the warranty handling for both add and edit forms
@@ -124,7 +121,7 @@
         "warranty"
       );
       handleWarrantyInput(
-        "editEquipmentModal",
+        "editEquipmentForm",
         "edit-warrantyValue",
         "edit-warrantyUnit",
         "edit-warranty"
@@ -160,7 +157,7 @@
           document.getElementById("edit-warrantyValue").value = value; // Set the number part
           document.getElementById("edit-warrantyUnit").value = unit; // Set the unit part (days/months/years)
 
-          // Populate the hidden warranty input with the combined value 
+          // Populate the hidden warranty input with the combined value
           document.getElementById("edit-warranty").value = warranty;
 
           document.getElementById("edit-purchaseDate").value = purchaseDate;
@@ -219,7 +216,7 @@
       </div>
       <div th:if="${errorMessage != null}">
         <script th:inline="javascript">
-          alert('[[${errorMessage}]]');
+          alert("[[${errorMessage}]]");
         </script>
       </div>
 
@@ -379,6 +376,7 @@
           th:action="@{/equipments/update}"
           method="post"
           class="equipment-form"
+          id="editEquipmentForm"
         >
           <input type="hidden" name="_method" value="PUT" />
           <input type="hidden" id="edit-id" name="id" />
